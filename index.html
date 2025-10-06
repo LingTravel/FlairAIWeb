@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlairAI - AI穿搭分析，ファッションの知能">
+    <title>FlairAI - AI穿搭分析</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray-dark: #666666;
+            --gray-mid: #999999;
+            --gray-light: #CCCCCC;
+            --bg-light: #F8F8F8;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 1px;
+            background: var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* 全屏選單 */
+        .fullscreen-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            z-index: 999;
+        }
+
+        .fullscreen-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-items {
+            list-style: none;
+            text-align: center;
+        }
+
+        .menu-items li {
+            margin: 40px 0;
+            overflow: hidden;
+        }
+
+        .menu-items a {
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .menu-items a:hover {
+            transform: scale(1.05);
+            letter-spacing: 8px;
+        }
+
+        /* Hero區域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(80px, 12vw, 180px);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero-subtitle-jp {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 300;
+            margin-bottom: 20px;
+            margin-left: 8px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.3s forwards;
+        }
+
+        .hero-subtitle-cn {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 500;
+            margin-left: 8px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.6s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            writing-mode: vertical-rl;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--gray-mid);
+            opacity: 0;
+            animation: fadeIn 1.2s ease 1s forwards;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 60px;
+            background: var(--gray-mid);
+            margin: 20px auto 0;
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(30px);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scrollLine {
+            0%, 100% {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+        }
+
+        /* 概念介紹區 */
+        .concept {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 40% 60%;
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .concept-left {
+            position: relative;
+        }
+
+        .concept-decoration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 240px;
+            font-weight: 300;
+            color: var(--bg-light);
+            font-family: 'Cormorant Garamond', serif;
+            z-index: 1;
+        }
+
+        .concept-right {
+            padding-left: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-label {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--gray-mid);
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .concept-title {
+            font-size: clamp(36px, 4vw, 64px);
+            font-weight: 500;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        .concept-text {
+            font-size: 18px;
+            color: var(--gray-dark);
+            margin-bottom: 30px;
+            line-height: 2;
+        }
+
+        .mixed-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 24px;
+            color: var(--gray-mid);
+            font-weight: 300;
+            margin-top: 60px;
+        }
+
+        /* 功能展示區 */
+        .features {
+            min-height: 100vh;
+            padding: 120px 60px;
+            background: var(--bg-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            margin-top: 100px;
+        }
+
+        .feature-item {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .feature-item:nth-child(1) {
+            transform: translateY(-40px);
+        }
+
+        .feature-item:nth-child(2) {
+            transform: translateY(40px);
+        }
+
+        .feature-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 120px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.1);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .feature-title-en {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+        }
+
+        .feature-title-jp {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: var(--gray-dark);
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .feature-item:hover .feature-title {
+            transform: scale(1.05);
+        }
+
+        .feature-item:hover .feature-desc {
+            opacity: 1;
+            max-height: 200px;
+            margin-top: 20px;
+        }
+
+        /* App展示區 */
+        .app-showcase {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 60px;
+        }
+
+        .app-mockup {
+            position: relative;
+        }
+
+        .phone-frame {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            transform: rotate(-15deg);
+            box-shadow: 40px 40px 80px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-frame::before {
+            content: 'FlairAI';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+        }
+
+        .download-text {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gray-light);
+        }
+
+        .app-note {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: var(--gray-mid);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* 頁腳 */
+        .footer {
+            padding: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: var(--gray-mid);
+            letter-spacing: 2px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gray-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-mid);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--black);
+            border-color: var(--black);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        /* 滾動動畫 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 20px 40px;
+            }
+
+            .concept {
+                grid-template-columns: 1fr;
+                padding: 80px 40px;
+            }
+
+            .concept-right {
+                padding-left: 0;
+                margin-top: 60px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .feature-item:nth-child(1),
+            .feature-item:nth-child(2) {
+                transform: translateY(0);
+            }
+
+            .download-text {
+                position: static;
+                writing-mode: horizontal-tb;
+                margin-top: 60px;
+                transform: none;
+                font-size: 48px;
+            }
+
+            .app-showcase {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 30px;
+            }
+
+            .hero {
+                padding: 0 30px;
+            }
+
+            .scroll-indicator {
+                right: 30px;
+                bottom: 40px;
+            }
+
+            .concept,
+            .features,
+            .app-showcase {
+                padding: 60px 30px;
+            }
+
+            .menu-items a {
+                font-size: 32px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 30px;
+                padding: 40px 30px;
+            }
+
+            .phone-frame {
+                transform: rotate(-10deg);
+                width: 250px;
+                height: 500px;
+            }
+        }
+
+        /* 載入動畫 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 載入動畫 -->
+    <div class="loader" id="loader">
+        <div class="loader-text">FlairAI</div>
+    </div>
+
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <a href="#" class="logo">FLAIRAI</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- 全屏選單 -->
+    <div class="fullscreen-menu" id="fullscreenMenu">
+        <ul class="menu-items">
+            <li><a href="#home">Home・首頁・ホーム</a></li>
+            <li><a href="#about">About・關於・について</a></li>
+            <li><a href="#features">Features・功能・機能</a></li>
+            <li><a href="#download">Download・下載・ダウンロード</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero區域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">FlairAI</h1>
+            <p class="hero-subtitle-jp">ファッションの知能</p>
+            <p class="hero-subtitle-cn">AI穿搭分析</p>
+        </div>
+        <div class="scroll-indicator">SCROLL</div>
+    </section>
+
+    <!-- 概念介紹區 -->
+    <section class="concept fade-in" id="about">
+        <div class="concept-left">
+            <div class="concept-decoration">AI</div>
+        </div>
+        <div class="concept-right">
+            <div class="section-label">CONCEPT</div>
+            <h2 class="concept-title">重新定義<br>時尚智能</h2>
+            <p class="concept-text">
+                FlairAI運用先進的人工智能技術，分析您的穿搭風格，提供個人化的時尚建議。我們相信，每個人都擁有獨特的品味，而AI能幫助您發掘和提升這份獨特性。
+            </p>
+            <p class="concept-text">
+                透過深度學習和圖像識別，FlairAI不僅理解服裝的搭配原則，更能捕捉您的個人風格偏好，打造專屬於您的時尚生態系統。
+            </p>
+            <p class="mixed-text">
+                スタイルを理解する、未来を創造する
+            </p>
+        </div>
+    </section>
+
+    <!-- 功能展示區 -->
+    <section class="features fade-in" id="features">
+        <div class="section-label">FEATURES</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-number">01</div>
+                <h3 class="feature-title feature-title-en">Analyze</h3>
+                <p class="feature-desc">智能分析您的衣櫃，識別顏色、風格和場合，建立完整的服裝數據庫。</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-number">02</div>
+                <h3 class="feature-title">洞察</h3>
+                <p class="feature-desc">深度學習您的穿搭習慣，提供個人化的風格洞察和改善建議。</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-number">03</div>
+                <h3 class="feature-title feature-title-jp">スタイル</h3>
+                <p class="feature-desc">每日推薦最適合的穿搭組合，考慮天氣、行程和心情等多重因素。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- App展示區 -->
+    <section class="app-showcase fade-in" id="download">
+        <div class="app-mockup">
+            <div class="phone-frame"></div>
+            <div class="download-text">DOWNLOAD</div>
+        </div>
+        <div class="app-note">
+            Available on iOS & Android<br>
+            iOS・Android 對應<br>
+            アプリをダウンロード
+        </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <div class="copyright">© 2024 FlairAI</div>
+        <div class="social-links">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="Twitter">TW</a>
+            <a href="#" aria-label="Facebook">FB</a>
+        </div>
+    </footer>
+
+    <script>
+        // 頁面載入
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // 選單切換
+        const menuToggle = document.getElementById('menuToggle');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            fullscreenMenu.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // 選單項目點擊
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                menuToggle.classList.remove('active');
+                fullscreenMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // 滾動動畫
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // 導航欄背景效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
