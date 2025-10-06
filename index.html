@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FlairAI - AI穿搭分析，ファッションの知能">
     <title>FlairAI - AI穿搭分析</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -38,7 +41,7 @@
             line-height: 1.8;
         }
 
-        /* 紙張質感效果 */
+        /* 紙質紋理效果 */
         body::before {
             content: '';
             position: fixed;
@@ -46,9 +49,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, transparent 0%, rgba(0,0,0,0.008) 100%),
-                radial-gradient(circle at 80% 80%, transparent 0%, rgba(0,0,0,0.005) 100%);
+            background-image:
+                radial-gradient(circle at 20% 50%, transparent 0%, rgba(0, 0, 0, 0.008) 100%),
+                radial-gradient(circle at 80% 80%, transparent 0%, rgba(0, 0, 0, 0.005) 100%);
             pointer-events: none;
             z-index: 1;
             opacity: 0.6;
@@ -324,7 +327,7 @@
             z-index: 2;
         }
 
-        /* ASCII 動畫容器 */
+        /* ASCII 動畫定義 */
         .ascii-container {
             position: relative;
             display: flex;
@@ -362,7 +365,7 @@
             z-index: 1;
         }
 
-        /* 垂直文字 */
+        /* 裝飾文字 */
         .hero-vertical-text {
             position: absolute;
             right: 40px;
@@ -427,6 +430,7 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
             from {
                 transform: translateY(30px);
             }
@@ -605,34 +609,38 @@
             line-height: 2;
         }
 
-        /* 時尚知識區域 - 重新設計 */
-        .knowledge-section {
-            padding: 100px 60px;
+        /* ============================================
+           新設計：美學洞察區域（取代原時尚知識）
+           ============================================ */
+
+        .aesthetic-insights {
+            min-height: 100vh;
+            padding: 120px 60px;
             background: var(--bg-light);
             position: relative;
         }
 
-        .knowledge-header {
+        .aesthetic-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
-        .knowledge-header h2 {
+        .aesthetic-header h2 {
             font-family: 'Noto Serif JP', serif;
             font-size: clamp(36px, 4vw, 56px);
             font-weight: 300;
             margin-bottom: 20px;
         }
 
-        .knowledge-header .subtitle {
+        .aesthetic-header .subtitle {
             font-size: 14px;
             letter-spacing: 4px;
             color: var(--gray-mid);
             text-transform: uppercase;
         }
 
-        /* 知識標籤導航 */
-        .knowledge-tabs {
+        /* 美學模塊標籤 */
+        .aesthetic-tabs {
             display: flex;
             justify-content: center;
             gap: 60px;
@@ -641,7 +649,7 @@
             padding-bottom: 0;
         }
 
-        .knowledge-tab {
+        .aesthetic-tab {
             background: none;
             border: none;
             cursor: pointer;
@@ -650,7 +658,7 @@
             transition: all 0.3s ease;
         }
 
-        .knowledge-tab-number {
+        .aesthetic-tab-number {
             font-family: 'Cormorant Garamond', serif;
             font-size: 14px;
             color: var(--gray-light);
@@ -658,21 +666,21 @@
             margin-bottom: 8px;
         }
 
-        .knowledge-tab-title {
+        .aesthetic-tab-title {
             font-size: 18px;
             color: var(--gray-mid);
             transition: all 0.3s ease;
         }
 
-        .knowledge-tab.active .knowledge-tab-title {
+        .aesthetic-tab.active .aesthetic-tab-title {
             color: var(--black);
         }
 
-        .knowledge-tab.active .knowledge-tab-number {
+        .aesthetic-tab.active .aesthetic-tab-number {
             color: var(--accent-gold);
         }
 
-        .knowledge-tab.active::after {
+        .aesthetic-tab.active::after {
             content: '';
             position: absolute;
             bottom: -1px;
@@ -682,75 +690,199 @@
             background: var(--black);
         }
 
-        /* 知識內容區 */
-        .knowledge-content {
+        /* 美學內容區 */
+        .aesthetic-content {
             display: none;
             max-width: 1200px;
             margin: 0 auto;
             animation: fadeIn 0.6s ease;
         }
 
-        .knowledge-content.active {
+        .aesthetic-content.active {
             display: block;
         }
 
-        /* 色彩理論布局 */
-        .color-grid {
+        /* ============================================
+           色彩理論 - 互動式色盤
+           ============================================ */
+
+        .color-theory-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
         }
 
-        .color-item {
+        /* 互動式色盤 */
+        .interactive-color-wheel {
             position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        .color-item h4 {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 20px;
+        .color-wheel-svg {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .color-segment {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .color-segment:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+            transform-origin: center;
+        }
+
+        .color-wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--gray-mid);
         }
 
-        .color-item h4 .en {
+        /* 色彩信息顯示 */
+        .color-info-display {
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            min-height: 400px;
+        }
+
+        .color-info-display h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .color-info-display .color-name {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
+            color: var(--gray-mid);
+            font-size: 18px;
+            margin-bottom: 30px;
         }
 
-        .color-item p {
+        .color-property {
+            margin-bottom: 25px;
+        }
+
+        .color-property-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            margin-bottom: 8px;
+        }
+
+        .color-property-value {
             font-size: 16px;
-            line-height: 2;
+            line-height: 1.8;
             color: var(--gray-dark);
         }
 
-        .color-item strong {
-            color: var(--black);
-            font-weight: 500;
+        .color-swatch {
+            width: 100%;
+            height: 80px;
+            border-radius: 4px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        /* 穿搭哲學布局 */
+        /* 色彩搭配建議 */
+        .color-combinations {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .color-combinations h4 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            margin-bottom: 20px;
+        }
+
+        .combination-swatches {
+            display: flex;
+            gap: 10px;
+        }
+
+        .combination-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .combination-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ============================================
+           穿搭哲學 - 重新設計
+           ============================================ */
+
         .philosophy-grid {
             display: grid;
-            gap: 50px;
+            gap: 60px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .philosophy-item {
-            border-left: 2px solid var(--accent-gold);
+            border-left: 3px solid var(--accent-gold);
             padding-left: 40px;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .philosophy-item.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .philosophy-item::before {
             content: '';
             position: absolute;
-            left: -6px;
+            left: -7px;
             top: 0;
-            width: 10px;
-            height: 10px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
             background: var(--accent-gold);
+            box-shadow: 0 0 0 4px var(--bg-light);
+        }
+
+        .philosophy-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
         }
 
         .philosophy-item h4 {
@@ -769,55 +901,72 @@
             color: var(--gray-dark);
         }
 
-        /* 時尚歷史時間軸 */
-        .timeline-container {
-            max-width: 900px;
+        /* ============================================
+           時尚歷史 - 時間軸重新設計
+           ============================================ */
+
+        .history-timeline {
+            max-width: 1000px;
             margin: 0 auto;
             position: relative;
+            padding-left: 80px;
         }
 
-        .timeline-container::before {
+        .history-timeline::before {
             content: '';
             position: absolute;
             left: 40px;
             top: 0;
             bottom: 0;
-            width: 1px;
-            background: var(--gray-light);
+            width: 2px;
+            background: linear-gradient(to bottom,
+                    transparent,
+                    var(--accent-gold) 10%,
+                    var(--accent-gold) 90%,
+                    transparent);
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 60px;
-            padding-left: 100px;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
         }
 
-        .timeline-year {
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 32px;
-            font-weight: 300;
-            color: var(--black);
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 35px;
-            top: 10px;
-            width: 11px;
-            height: 11px;
+            left: -46px;
+            top: 8px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: var(--white);
-            border: 3px solid var(--accent-gold);
+            background: var(--accent-gold);
+            border: 3px solid var(--bg-light);
+            box-shadow: 0 0 0 2px var(--accent-gold);
+            z-index: 2;
+        }
+
+        .timeline-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--black);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
         }
 
         .timeline-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 500;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            color: var(--black);
         }
 
         .timeline-title .en {
@@ -829,6 +978,170 @@
             font-size: 16px;
             line-height: 2;
             color: var(--gray-dark);
+            max-width: 600px;
+        }
+
+        /* ============================================
+           我們的堅持 - 垂直卷軸式設計
+           ============================================ */
+
+        .philosophy-section {
+            background: var(--white);
+            position: relative;
+        }
+
+        /* 標題屏幕 */
+        .philosophy-intro {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .philosophy-intro h2 {
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .philosophy-intro-line {
+            width: 120px;
+            height: 1px;
+            background: var(--gray-light);
+            margin: 40px 0;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 60px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--gray-mid);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        /* 核心理念項目 */
+        .philosophy-belief {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 60px;
+            position: relative;
+        }
+
+        .belief-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+        }
+
+        .belief-title {
+            font-size: clamp(56px, 8vw, 96px);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            writing-mode: horizontal-tb;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .philosophy-belief.visible .belief-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .belief-title.vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 20px;
+        }
+
+        .belief-subtitle {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 300;
+            color: var(--gray-mid);
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        .philosophy-belief.visible .belief-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .belief-description {
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 2.2;
+            color: var(--gray-dark);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+        }
+
+        .philosophy-belief.visible .belief-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 裝飾線條 */
+        .belief-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gray-light);
+            margin: 60px auto;
+        }
+
+        /* 總結屏幕 */
+        .philosophy-conclusion {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 60px;
+        }
+
+        .conclusion-statement {
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 300;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.8;
+            margin-bottom: 60px;
+        }
+
+        .conclusion-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            letter-spacing: 4px;
+            color: var(--gray-mid);
         }
 
         /* App展示區 */
@@ -852,7 +1165,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 40px;
             transform: rotate(-15deg);
-            box-shadow: 
+            box-shadow:
                 20px 20px 40px rgba(0, 0, 0, 0.1),
                 40px 40px 80px rgba(0, 0, 0, 0.08);
             display: flex;
@@ -867,7 +1180,7 @@
 
         .phone-frame:hover {
             transform: rotate(-12deg) scale(1.02);
-            box-shadow: 
+            box-shadow:
                 25px 25px 50px rgba(0, 0, 0, 0.15),
                 50px 50px 100px rgba(0, 0, 0, 0.1);
         }
@@ -1201,7 +1514,7 @@
             transform: translateY(0);
         }
 
-        /* 多語言內容 */
+        /* 多語言元素 */
         .lang-content {
             display: none;
         }
@@ -1267,11 +1580,11 @@
                 transform: translateY(0);
             }
 
-            .knowledge-tabs {
+            .aesthetic-tabs {
                 gap: 30px;
             }
 
-            .color-grid,
+            .color-theory-container,
             .philosophy-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1342,7 +1655,7 @@
 
             .concept,
             .features,
-            .knowledge-section,
+            .aesthetic-insights,
             .app-showcase {
                 padding: 60px 30px;
             }
@@ -1366,18 +1679,18 @@
                 font-size: clamp(2px, 0.4vw, 3.5px);
             }
 
-            .knowledge-tabs {
+            .aesthetic-tabs {
                 flex-direction: column;
                 gap: 0;
                 border-bottom: none;
             }
 
-            .knowledge-tab {
+            .aesthetic-tab {
                 border-bottom: 0.5px solid var(--gray-light);
                 padding: 15px 0;
             }
 
-            .knowledge-tab.active::after {
+            .aesthetic-tab.active::after {
                 display: none;
             }
 
@@ -1390,7 +1703,7 @@
                 font-size: 36px;
             }
 
-            .timeline-container::before {
+            .history-timeline::before {
                 left: 20px;
             }
 
@@ -1404,6 +1717,11 @@
 
             .timeline-item::before {
                 left: 15px;
+            }
+
+            .belief-title.vertical-text {
+                writing-mode: horizontal-tb;
+                letter-spacing: 4px;
             }
         }
 
@@ -1436,15 +1754,19 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.3;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- 載入動畫 -->
     <div class="loader" id="loader">
@@ -1473,11 +1795,23 @@
     <!-- 全屏選單 -->
     <div class="fullscreen-menu" id="fullscreenMenu">
         <ul class="menu-items">
-            <li><a href="#home" class="lang-content active" data-lang="zh-TW">首頁</a><a href="#home" class="lang-content" data-lang="ja">ホーム</a><a href="#home" class="lang-content" data-lang="en">Home</a></li>
-            <li><a href="#about" class="lang-content active" data-lang="zh-TW">關於</a><a href="#about" class="lang-content" data-lang="ja">について</a><a href="#about" class="lang-content" data-lang="en">About</a></li>
-            <li><a href="#features" class="lang-content active" data-lang="zh-TW">功能</a><a href="#features" class="lang-content" data-lang="ja">機能</a><a href="#features" class="lang-content" data-lang="en">Features</a></li>
-            <li><a href="#knowledge" class="lang-content active" data-lang="zh-TW">時尚知識</a><a href="#knowledge" class="lang-content" data-lang="ja">ファッション知識</a><a href="#knowledge" class="lang-content" data-lang="en">Knowledge</a></li>
-            <li><a href="#download" class="lang-content active" data-lang="zh-TW">下載</a><a href="#download" class="lang-content" data-lang="ja">ダウンロード</a><a href="#download" class="lang-content" data-lang="en">Download</a></li>
+            <li><a href="#home" class="lang-content active" data-lang="zh-TW">首頁</a><a href="#home" class="lang-content"
+                    data-lang="ja">ホーム</a><a href="#home" class="lang-content" data-lang="en">Home</a></li>
+            <li><a href="#about" class="lang-content active" data-lang="zh-TW">關於</a><a href="#about"
+                    class="lang-content" data-lang="ja">について</a><a href="#about" class="lang-content"
+                    data-lang="en">About</a></li>
+            <li><a href="#features" class="lang-content active" data-lang="zh-TW">功能</a><a href="#features"
+                    class="lang-content" data-lang="ja">機能</a><a href="#features" class="lang-content"
+                    data-lang="en">Features</a></li>
+            <li><a href="#aesthetic" class="lang-content active" data-lang="zh-TW">美學洞察</a><a href="#aesthetic"
+                    class="lang-content" data-lang="ja">美学の洞察</a><a href="#aesthetic" class="lang-content"
+                    data-lang="en">Aesthetic Insights</a></li>
+            <li><a href="#philosophy" class="lang-content active" data-lang="zh-TW">我們的堅持</a><a href="#philosophy"
+                    class="lang-content" data-lang="ja">私たちのこだわり</a><a href="#philosophy" class="lang-content"
+                    data-lang="en">Our Philosophy</a></li>
+            <li><a href="#download" class="lang-content active" data-lang="zh-TW">下載</a><a href="#download"
+                    class="lang-content" data-lang="ja">ダウンロード</a><a href="#download" class="lang-content"
+                    data-lang="en">Download</a></li>
         </ul>
     </div>
 
@@ -1490,7 +1824,7 @@
                 <span class="lang-content" data-lang="ja">お問い合わせ</span>
                 <span class="lang-content" data-lang="en">Get in Touch</span>
             </h2>
-            <div class="contact-email">notlingisnotling@gmail.com</div>
+            <div class="contact-email">notlinginotling@gmail.com</div>
             <button class="contact-copy-btn" id="copyEmailBtn">
                 <span class="lang-content active" data-lang="zh-TW">複製郵箱</span>
                 <span class="lang-content" data-lang="ja">コピー</span>
@@ -1508,12 +1842,12 @@
     <div class="legal-modal" id="termsModal">
         <div class="legal-content">
             <button class="legal-close" id="termsClose">×</button>
-            
+
             <!-- 繁體中文版本 -->
             <div class="lang-content active" data-lang="zh-TW">
                 <h1 class="legal-title">Terms of Service</h1>
                 <p class="legal-updated">最後更新：2025年1月</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> 接受條款</h3>
                     <p>使用 FlairAI 服務即表示您同意受本服務條款約束。若您不同意這些條款，請勿使用本服務。</p>
@@ -1521,7 +1855,7 @@
 
                 <div class="legal-section">
                     <h3><span class="number">2</span> 服務描述</h3>
-                    <p>FlairAI 是一個 AI 驅動的時尚穿搭分析應用程式，使用 Gemini API 技術為您提供個性化的穿搭建議和風格分析。</p>
+                    <p>FlairAI 是一個 AI 驅動的時尚穿搭分析應用程式，使用 Gemini API 技術為您提供個性化的穿搭建議和分析。</p>
                 </div>
 
                 <div class="legal-section">
@@ -1542,12 +1876,12 @@
 
                 <div class="legal-section">
                     <h3><span class="number">5</span> 知識產權</h3>
-                    <p>FlairAI 的所有內容、功能和特性均受版權、商標和其他知識產權法保護。您上傳的內容仍屬於您所有。</p>
+                    <p>FlairAI 的所有內容、功能和特性均受版權、商標和其他知識產權法保護。您上傳的內容仍屬於您。</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">6</span> 免責聲明</h3>
-                    <p>服務按「現況」提供。我們不保證服務的準確性、完整性或適用性。AI 分析結果僅供參考。</p>
+                    <p>服務按「現狀」提供。我們不保證服務的準確性、完整性或適用性。AI 分析結果僅供參考。</p>
                 </div>
 
                 <div class="legal-section">
@@ -1557,12 +1891,12 @@
 
                 <div class="legal-section">
                     <h3><span class="number">8</span> 適用法律</h3>
-                    <p>本條款受台灣法律管轄並依其解釋。</p>
+                    <p>本條款受台灣法律管轄並按其解釋。</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> 聯絡資訊</h3>
-                    <p>如有任何問題，請聯絡：notlingisnotling@gmail.com</p>
+                    <p>如有任何問題，請聯絡：notlinginotling@gmail.com</p>
                 </div>
             </div>
 
@@ -1570,7 +1904,7 @@
             <div class="lang-content" data-lang="ja">
                 <h1 class="legal-title">利用規約</h1>
                 <p class="legal-updated">最終更新：2025年1月</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> 規約の承諾</h3>
                     <p>FlairAI サービスを使用することにより、本利用規約に同意したものとみなされます。これらの規約に同意しない場合は、本サービスを使用しないでください。</p>
@@ -1588,7 +1922,7 @@
                         <li>正確かつ真実の情報を提供すること</li>
                         <li>サービスの運用を妨害しないこと</li>
                         <li>違法または不適切なコンテンツをアップロードしないこと</li>
-                        <li>適用されるすべての法令を遵守すること</li>
+                        <li>適用されるすべての法律を遵守すること</li>
                     </ul>
                 </div>
 
@@ -1619,7 +1953,7 @@
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> お問い合わせ</h3>
-                    <p>ご質問がある場合は、notlingisnotling@gmail.com までご連絡ください。</p>
+                    <p>ご質問がある場合は、notlinginotling@gmail.com までご連絡ください。</p>
                 </div>
             </div>
 
@@ -1627,15 +1961,17 @@
             <div class="lang-content" data-lang="en">
                 <h1 class="legal-title">Terms of Service</h1>
                 <p class="legal-updated">Last updated: January 2025</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> Acceptance of Terms</h3>
-                    <p>By using FlairAI services, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, please do not use our service.</p>
+                    <p>By using FlairAI services, you agree to be bound by these Terms of Service. If you disagree with
+                        any part of these terms, please do not use our service.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">2</span> Service Description</h3>
-                    <p>FlairAI is an AI-powered fashion styling analysis application that uses Gemini API technology to provide personalized style recommendations and analysis.</p>
+                    <p>FlairAI is an AI-powered fashion styling analysis application that uses Gemini API technology to
+                        provide personalized style recommendations and analysis.</p>
                 </div>
 
                 <div class="legal-section">
@@ -1651,17 +1987,20 @@
 
                 <div class="legal-section">
                     <h3><span class="number">4</span> Privacy and Data</h3>
-                    <p>Your privacy is critically important to us. Please refer to our Privacy Policy to understand how we collect, use, and protect your personal information.</p>
+                    <p>Your privacy is critically important to us. Please refer to our Privacy Policy to understand how
+                        we collect, use, and protect your personal information.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">5</span> Intellectual Property</h3>
-                    <p>All content, features, and functionality of FlairAI are protected by copyright, trademark, and other intellectual property laws. Content you upload remains yours.</p>
+                    <p>All content, features, and functionality of FlairAI are protected by copyright, trademark, and
+                        other intellectual property laws. Content you upload remains yours.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">6</span> Disclaimer</h3>
-                    <p>Services are provided "as is". We do not guarantee the accuracy, completeness, or suitability of the service. AI analysis results are for reference only.</p>
+                    <p>Services are provided "as is". We do not guarantee the accuracy, completeness, or suitability of
+                        the service. AI analysis results are for reference only.</p>
                 </div>
 
                 <div class="legal-section">
@@ -1676,7 +2015,7 @@
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> Contact Information</h3>
-                    <p>For any questions, please contact: notlingisnotling@gmail.com</p>
+                    <p>For any questions, please contact: notlinginotling@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -1686,12 +2025,12 @@
     <div class="legal-modal" id="privacyModal">
         <div class="legal-content">
             <button class="legal-close" id="privacyClose">×</button>
-            
+
             <!-- 繁體中文版本 -->
             <div class="lang-content active" data-lang="zh-TW">
                 <h1 class="legal-title">Privacy Policy</h1>
                 <p class="legal-updated">最後更新：2025年1月</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> 收集的資訊</h3>
                     <p>我們收集以下類型的資訊：</p>
@@ -1707,14 +2046,14 @@
                     <p>我們使用收集的資訊用於：</p>
                     <ul>
                         <li>提供 AI 分析服務</li>
-                        <li>改進服務質量和用戶體驗</li>
+                        <li>改善服務質量和用戶體驗</li>
                         <li>進行匿名統計分析</li>
                     </ul>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">3</span> 資訊分享</h3>
-                    <p>我們絕不出售您的個人資訊。資訊可能與以下第三方共享：</p>
+                    <p>我們絕不出售您的個人資訊。資訊可能會在以下第三方共享：</p>
                     <ul>
                         <li><strong>Gemini API</strong>：用於 AI 分析處理</li>
                         <li><strong>Supabase</strong>：安全的數據存儲服務</li>
@@ -1728,7 +2067,7 @@
                     <ul>
                         <li>加密傳輸（SSL/TLS）</li>
                         <li>Supabase 數據加密存儲</li>
-                        <li>定期安全審核</li>
+                        <li>定期安全審查</li>
                         <li>照片不永久保存</li>
                     </ul>
                 </div>
@@ -1739,29 +2078,29 @@
                     <ul>
                         <li>訪問您的個人資料</li>
                         <li>請求刪除您的數據</li>
-                        <li>退出數據收集</li>
+                        <li>選出數據收集</li>
                         <li>更正不準確的資訊</li>
                     </ul>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">6</span> Cookie 政策</h3>
-                    <p>我們使用 Cookie 來改善用戶體驗和分析服務使用情況。您可以通過瀏覽器設置管理 Cookie 偏好。</p>
+                    <p>我們使用 Cookie 以改善用戶體驗和分析服務使用。您可以透過瀏覽器設定管理 Cookie 偏好。</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">7</span> 兒童隱私</h3>
-                    <p>我們的服務不面向13歲以下兒童。我們不會故意收集兒童的個人資訊。</p>
+                    <p>我們的服務不面向13歲以下兒童。我們不有意收集兒童的個人資訊。</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">8</span> 政策更新</h3>
-                    <p>我們可能會不時更新本隱私政策。重大變更將通過應用程式通知您。</p>
+                    <p>我們可能不時更新本隱私政策。重大變更將透過應用程式通知您。</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> 聯絡方式</h3>
-                    <p>如對本隱私政策有任何疑問，請聯絡：notlingisnotling@gmail.com</p>
+                    <p>如對本隱私政策有任何疑問，請聯絡：notlinginotling@gmail.com</p>
                 </div>
             </div>
 
@@ -1769,7 +2108,7 @@
             <div class="lang-content" data-lang="ja">
                 <h1 class="legal-title">プライバシーポリシー</h1>
                 <p class="legal-updated">最終更新：2025年1月</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> 収集する情報</h3>
                     <p>以下の種類の情報を収集します：</p>
@@ -1807,7 +2146,7 @@
                         <li>暗号化通信（SSL/TLS）</li>
                         <li>Supabase データ暗号化ストレージ</li>
                         <li>定期的なセキュリティ監査</li>
-                        <li>写真の永続的保存なし</li>
+                        <li>写真の永続的な保存なし</li>
                     </ul>
                 </div>
 
@@ -1824,7 +2163,7 @@
 
                 <div class="legal-section">
                     <h3><span class="number">6</span> Cookie ポリシー</h3>
-                    <p>ユーザー体験の向上とサービス使用状況の分析のため Cookie を使用します。ブラウザ設定で Cookie の設定を管理できます。</p>
+                    <p>ユーザー体験向上とサービス使用分析のため Cookie を使用します。ブラウザ設定で Cookie の設定を管理できます。</p>
                 </div>
 
                 <div class="legal-section">
@@ -1839,7 +2178,7 @@
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> お問い合わせ</h3>
-                    <p>本プライバシーポリシーに関するご質問は、notlingisnotling@gmail.com までご連絡ください。</p>
+                    <p>本プライバシーポリシーに関するご質問は、notlinginotling@gmail.com までご連絡ください。</p>
                 </div>
             </div>
 
@@ -1847,12 +2186,13 @@
             <div class="lang-content" data-lang="en">
                 <h1 class="legal-title">Privacy Policy</h1>
                 <p class="legal-updated">Last updated: January 2025</p>
-                
+
                 <div class="legal-section">
                     <h3><span class="number">1</span> Information We Collect</h3>
                     <p>We collect the following types of information:</p>
                     <ul>
-                        <li><strong>Photos</strong>: Used only for AI analysis, not permanently stored on our servers</li>
+                        <li><strong>Photos</strong>: Used only for AI analysis, not permanently stored on our servers
+                        </li>
                         <li><strong>Basic User Information</strong>: Account data, preferences</li>
                         <li><strong>Usage Data</strong>: Application usage and interaction records</li>
                     </ul>
@@ -1902,22 +2242,25 @@
 
                 <div class="legal-section">
                     <h3><span class="number">6</span> Cookie Policy</h3>
-                    <p>We use cookies to improve user experience and analyze service usage. You can manage cookie preferences through your browser settings.</p>
+                    <p>We use cookies to improve user experience and analyze service usage. You can manage cookie
+                        preferences through your browser settings.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">7</span> Children's Privacy</h3>
-                    <p>Our service is not directed to children under 13. We do not knowingly collect personal information from children.</p>
+                    <p>Our service is not directed to children under 13. We do not knowingly collect personal
+                        information from children.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">8</span> Policy Updates</h3>
-                    <p>We may update this privacy policy from time to time. Significant changes will be notified through the application.</p>
+                    <p>We may update this privacy policy from time to time. Significant changes will be notified through
+                        the application.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3><span class="number">9</span> Contact</h3>
-                    <p>For questions about this privacy policy, please contact: notlingisnotling@gmail.com</p>
+                    <p>For questions about this privacy policy, please contact: notlinginotling@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -1928,15 +2271,19 @@
         <!-- 視差背景層 -->
         <div class="parallax-layer parallax-layer-1"></div>
         <div class="parallax-layer parallax-layer-2"></div>
-        
+
         <div class="hero-left">
             <div class="hero-label">AI Fashion Analysis</div>
             <div class="hero-title-group">
                 <p class="hero-subtitle-jp">ファッションの知能</p>
-                <h1 class="hero-subtitle-cn">AI穿搭分析</h1>
+                <h1 class="hero-subtitle-cn">
+                    <span class="lang-content active" data-lang="zh-TW">AI穿搭分析</span>
+                    <span class="lang-content" data-lang="ja">ファッション知能を<br>再定義する</span>
+                    <span class="lang-content" data-lang="en">Redefining<br>Fashion Intelligence</span>
+                </h1>
                 <!-- 繁體中文 -->
                 <p class="hero-description lang-content active" data-lang="zh-TW">
-                    運用先進的人工智能技術，分析您的穿搭風格，提供個性化的時尚建議。重新定義您的時尚智能體驗。
+                    運用先進的人工智慧技術，分析您的穿搭風格，提供個性化的時尚建議。重新定義您的時尚智能魅力。
                 </p>
                 <!-- 日文 -->
                 <p class="hero-description lang-content" data-lang="ja">
@@ -1944,28 +2291,29 @@
                 </p>
                 <!-- 英文 -->
                 <p class="hero-description lang-content" data-lang="en">
-                    Utilizing advanced AI technology to analyze your fashion style and provide personalized recommendations. Redefining your fashion intelligence.
+                    Utilizing advanced artificial intelligence technology to analyze your fashion style and provide
+                    personalized recommendations. Redefining your fashion intelligence.
                 </p>
             </div>
         </div>
-        
+
         <!-- 中間分隔線 -->
         <div class="hero-divider"></div>
-        
+
         <div class="hero-right">
             <!-- 裝飾文字 -->
             <div class="decorative-text decorative-text-1">Style</div>
-            
+
             <div class="ascii-container">
                 <pre class="ascii-art" id="asciiArt"></pre>
                 <pre class="ascii-overlay" id="asciiOverlay"></pre>
             </div>
         </div>
-        
+
         <div class="hero-vertical-text">
             ファッションの知能を再定義する
         </div>
-        
+
         <div class="page-number">001</div>
         <div class="hero-dot"></div>
     </section>
@@ -1978,37 +2326,44 @@
         <div class="concept-right">
             <div class="section-label">CONCEPT</div>
             <h2 class="concept-title">重新定義<br>時尚智能</h2>
-            
+
             <!-- 繁體中文 -->
             <div class="lang-content active" data-lang="zh-TW">
                 <p class="mixed-typography">
-                    <span class="en">FlairAI</span> 運用先進的人工智能技術，分析您的穿搭風格，提供個性化的時尚建議。我們相信，每個人都擁有獨特的品味，而 <span class="en">AI</span> 能幫助您發掘和提升這份獨特性。
+                    <span class="en">FlairAI</span> 運用先進的人工智慧技術，分析您的穿搭風格，提供個性化的時尚建議。我們相信，每個人都擁有獨特的品味，而 <span
+                        class="en">AI</span> 能幫助您發現和提升這份獨特性。
                 </p>
                 <p class="concept-text">
-                    透過深度學習和圖像識別，FlairAI 不僅理解流行趨勢的搭配原則，更能捕捉您的個人風格偏好，打造專屬於您的時尚生活系統。
+                    透過深度學習和圖像識別，FlairAI 不僅能捕捉流行趨勢的本質，更能捕捉您的個人風格偏好，打造屬於您的時尚生活系統。
                 </p>
             </div>
-            
+
             <!-- 日文 -->
             <div class="lang-content" data-lang="ja">
                 <p class="mixed-typography">
-                    <span class="en">FlairAI</span>は先進的な<span class="en">AI</span>技術を活用し、あなたのファッションスタイルを分析、パーソナライズされた提案を提供します。私たちは、誰もが独自のセンスを持っていると信じており、<span class="en">AI</span>がその発見と向上を支援します。
+                    <span class="en">FlairAI</span> は先進的な<span
+                        class="en">AI</span>技術を活用し、あなたのファッションスタイルを分析、パーソナライズされた提案を提供します。誰もが独自のセンスを持っていると信じており、<span
+                        class="en">AI</span>がその発見と向上を支援します。
                 </p>
                 <p class="concept-text">
-                    ディープラーニングと画像認識により、FlairAI は流行のトレンドだけでなく、あなた個人のスタイルの好みを捉え、専用のファッションライフシステムを構築します。
+                    ディープラーニングと画像認識により、FlairAI は流行のトレンドだけでなく、あなたの個人的なスタイル好みを捉え、専用のファッションライフシステムを構築します。
                 </p>
             </div>
-            
+
             <!-- 英文 -->
             <div class="lang-content" data-lang="en">
                 <p class="mixed-typography">
-                    <span class="en">FlairAI</span> utilizes advanced artificial intelligence technology to analyze your fashion style and provide personalized recommendations. We believe everyone has unique taste, and <span class="en">AI</span> can help you discover and enhance that uniqueness.
+                    <span class="en">FlairAI</span> utilizes advanced artificial intelligence technology to analyze your
+                    fashion style and provide personalized recommendations. We believe everyone has unique taste, and
+                    <span class="en">AI</span> can help you discover and enhance that uniqueness.
                 </p>
                 <p class="concept-text">
-                    Through deep learning and image recognition, FlairAI not only understands trending fashion principles but also captures your personal style preferences, creating a fashion lifestyle system tailored to you.
+                    Through deep learning and image recognition, FlairAI not only understands trending fashion
+                    principles but also captures your personal style preferences, creating a fashion lifestyle system
+                    tailored to you.
                 </p>
             </div>
-            
+
             <p class="mixed-text">
                 スタイルを理解する、未来を創造する
             </p>
@@ -2022,63 +2377,68 @@
             <div class="feature-item">
                 <div class="feature-number">01</div>
                 <h3 class="feature-title feature-title-en">Analyze</h3>
-                <p class="feature-desc lang-content active" data-lang="zh-TW">智能分析您的衣櫃，識別顏色、風格和場合，建立完整的服飾數據庫。</p>
-                <p class="feature-desc lang-content" data-lang="ja">あなたのワードローブをスマート分析し、色、スタイル、シーンを識別、完全な服飾データベースを構築します。</p>
-                <p class="feature-desc lang-content" data-lang="en">Intelligently analyze your wardrobe, identifying colors, styles, and occasions to build a complete fashion database.</p>
+                <p class="feature-desc lang-content active" data-lang="zh-TW">智慧分析您的衣櫃，識別顏色、風格和場合，建立完整的時尚數據庫。</p>
+                <p class="feature-desc lang-content" data-lang="ja">あなたのワードローブをスマート分析し、色、スタイル、シーンを識別、完全な服装データベースを構築します。
+                </p>
+                <p class="feature-desc lang-content" data-lang="en">Intelligently analyze your wardrobe, identifying
+                    colors, styles, and occasions to build a complete fashion database.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-number">02</div>
                 <h3 class="feature-title">洞察</h3>
                 <p class="feature-desc lang-content active" data-lang="zh-TW">深度學習您的穿搭習慣，提供個性化的風格洞察和改善建議。</p>
                 <p class="feature-desc lang-content" data-lang="ja">あなたの着こなし習慣を深層学習し、パーソナライズされたスタイルインサイトと改善提案を提供します。</p>
-                <p class="feature-desc lang-content" data-lang="en">Deep learning of your dressing habits, providing personalized style insights and improvement suggestions.</p>
+                <p class="feature-desc lang-content" data-lang="en">Deep learning of your dressing habits, providing
+                    personalized style insights and improvement suggestions.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-number">03</div>
                 <h3 class="feature-title feature-title-jp">スタイル</h3>
-                <p class="feature-desc lang-content active" data-lang="zh-TW">每日推薦最適合的穿搭組合，考量天氣、行程和心情等多重因素。</p>
+                <p class="feature-desc lang-content active" data-lang="zh-TW">每日推薦最適合的穿搭組合，考慮天氣、行程和心情等多重因素。</p>
                 <p class="feature-desc lang-content" data-lang="ja">天気、予定、気分など複数の要素を考慮し、毎日最適なコーディネートを提案します。</p>
-                <p class="feature-desc lang-content" data-lang="en">Daily recommendations for the best outfit combinations, considering weather, schedule, and mood.</p>
+                <p class="feature-desc lang-content" data-lang="en">Daily recommendations for the best outfit
+                    combinations, considering weather, schedule, and mood.</p>
             </div>
         </div>
     </section>
-
-    <!-- 時尚知識區域 - 重新設計 -->
-    <section class="knowledge-section fade-in" id="knowledge">
-        <div class="knowledge-header">
+    <!-- ============================================
+         美學洞察區域（取代原時尚知識）
+         ============================================ -->
+    <section class="aesthetic-insights fade-in" id="aesthetic">
+        <div class="aesthetic-header">
             <div class="subtitle">
-                <span class="lang-content active" data-lang="zh-TW">KNOWLEDGE</span>
-                <span class="lang-content" data-lang="ja">知識</span>
-                <span class="lang-content" data-lang="en">KNOWLEDGE</span>
+                <span class="lang-content active" data-lang="zh-TW">AESTHETIC INSIGHTS</span>
+                <span class="lang-content" data-lang="ja">美学の洞察</span>
+                <span class="lang-content" data-lang="en">AESTHETIC INSIGHTS</span>
             </div>
             <h2>
-                <span class="lang-content active" data-lang="zh-TW">時尚知識</span>
-                <span class="lang-content" data-lang="ja">ファッション知識</span>
-                <span class="lang-content" data-lang="en">Fashion Knowledge</span>
+                <span class="lang-content active" data-lang="zh-TW">美學洞察</span>
+                <span class="lang-content" data-lang="ja">美学の洞察</span>
+                <span class="lang-content" data-lang="en">Aesthetic Insights</span>
             </h2>
         </div>
 
-        <!-- 知識標籤 -->
-        <div class="knowledge-tabs">
-            <button class="knowledge-tab active" data-tab="color">
-                <span class="knowledge-tab-number">01</span>
-                <div class="knowledge-tab-title">
+        <!-- 美學模塊標籤 -->
+        <div class="aesthetic-tabs">
+            <button class="aesthetic-tab active" data-tab="color">
+                <span class="aesthetic-tab-number">01</span>
+                <div class="aesthetic-tab-title">
                     <span class="lang-content active" data-lang="zh-TW">色彩理論</span>
                     <span class="lang-content" data-lang="ja">色彩理論</span>
                     <span class="lang-content" data-lang="en">Color Theory</span>
                 </div>
             </button>
-            <button class="knowledge-tab" data-tab="philosophy">
-                <span class="knowledge-tab-number">02</span>
-                <div class="knowledge-tab-title">
+            <button class="aesthetic-tab" data-tab="philosophy">
+                <span class="aesthetic-tab-number">02</span>
+                <div class="aesthetic-tab-title">
                     <span class="lang-content active" data-lang="zh-TW">穿搭哲學</span>
                     <span class="lang-content" data-lang="ja">スタイル哲学</span>
                     <span class="lang-content" data-lang="en">Style Philosophy</span>
                 </div>
             </button>
-            <button class="knowledge-tab" data-tab="history">
-                <span class="knowledge-tab-number">03</span>
-                <div class="knowledge-tab-title">
+            <button class="aesthetic-tab" data-tab="history">
+                <span class="aesthetic-tab-number">03</span>
+                <div class="aesthetic-tab-title">
                     <span class="lang-content active" data-lang="zh-TW">時尚歷史</span>
                     <span class="lang-content" data-lang="ja">ファッション史</span>
                     <span class="lang-content" data-lang="en">Fashion History</span>
@@ -2086,136 +2446,242 @@
             </button>
         </div>
 
-        <!-- 色彩理論內容 -->
-        <div class="knowledge-content active" id="tab-color">
-            <div class="color-grid">
-                <!-- 繁體中文 -->
-                <div class="lang-content active" data-lang="zh-TW">
-                    <div class="color-item">
-                        <h4><span class="en">Color</span> 心理學</h4>
-                        <p>
-                            <strong>黑色</strong>：權威、優雅、神秘<br>
-                            <strong>白色</strong>：純淨、簡約、現代<br>
-                            <strong>灰色</strong>：中性、專業、平衡<br>
-                            <strong>深藍</strong>：信任、穩重、智慧
-                        </p>
-                    </div>
-                </div>
-                <div class="lang-content active" data-lang="zh-TW">
-                    <div class="color-item">
-                        <h4>配色法則</h4>
-                        <p>
-                            <strong>互補色搭配</strong>：創造視覺衝擊，適合希望突顯個性時使用<br>
-                            <strong>類似色搭配</strong>：營造和諧氛圍，適合日常穿搭<br>
-                            <strong>單色系搭配</strong>：展現簡約高級感，注重材質層次
-                        </p>
+        <!-- ============================================
+             色彩理論內容 - 互動式色盤
+             ============================================ -->
+        <div class="aesthetic-content active" id="tab-color">
+            <div class="color-theory-container">
+                <!-- 互動式色盤 -->
+                <div class="interactive-color-wheel">
+                    <svg class="color-wheel-svg" viewBox="0 0 400 400" id="colorWheelSVG">
+                        <!-- 色環分段 -->
+                        <g id="colorSegments"></g>
+                    </svg>
+                    <div class="color-wheel-center">
+                        <span class="lang-content active" data-lang="zh-TW">選擇色彩</span>
+                        <span class="lang-content" data-lang="ja">色を選択</span>
+                        <span class="lang-content" data-lang="en">Select Color</span>
                     </div>
                 </div>
 
-                <!-- 日文 -->
-                <div class="lang-content" data-lang="ja">
-                    <div class="color-item">
-                        <h4><span class="en">Color</span> 心理学</h4>
-                        <p>
-                            <strong>黒</strong>：権威、優雅さ、神秘性<br>
-                            <strong>白</strong>：純粋さ、シンプルさ、モダン<br>
-                            <strong>グレー</strong>：中立性、プロフェッショナル、バランス<br>
-                            <strong>ネイビー</strong>：信頼、安定、知性
-                        </p>
-                    </div>
-                </div>
-                <div class="lang-content" data-lang="ja">
-                    <div class="color-item">
-                        <h4>配色の法則</h4>
-                        <p>
-                            <strong>補色配色</strong>：視覚的なインパクトを生み出し、個性を際立たせたいときに<br>
-                            <strong>類似色配色</strong>：調和の取れた雰囲気を作り、日常着に適しています<br>
-                            <strong>単色配色</strong>：シンプルで高級感を演出、素材の質感に注目
-                        </p>
-                    </div>
-                </div>
+                <!-- 色彩信息顯示 -->
+                <div class="color-info-display" id="colorInfoDisplay">
+                    <!-- 繁體中文 -->
+                    <div class="lang-content active" data-lang="zh-TW">
+                        <h3 id="colorNameZH">點擊色環探索</h3>
+                        <p class="color-name" id="colorNameEnZH">Color Psychology</p>
 
-                <!-- 英文 -->
-                <div class="lang-content" data-lang="en">
-                    <div class="color-item">
-                        <h4><span class="en">Color</span> Psychology</h4>
-                        <p>
-                            <strong>Black</strong>: Authority, Elegance, Mystery<br>
-                            <strong>White</strong>: Purity, Minimalism, Modernity<br>
-                            <strong>Gray</strong>: Neutrality, Professionalism, Balance<br>
-                            <strong>Navy</strong>: Trust, Stability, Wisdom
-                        </p>
+                        <div class="color-property">
+                            <div class="color-property-label">情感聯想</div>
+                            <div class="color-property-value" id="colorEmotionZH">選擇一個顏色以查看其心理學意義</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">適用場合</div>
+                            <div class="color-property-value" id="colorOccasionZH">—</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">搭配建議</div>
+                            <div class="color-property-value" id="colorPairingZH">—</div>
+                        </div>
+
+                        <div class="color-swatch" id="colorSwatch"></div>
+
+                        <div class="color-combinations">
+                            <h4>推薦配色</h4>
+                            <div class="combination-swatches" id="combinationSwatches">
+                                <div class="combination-swatch" style="background: #000000;"></div>
+                                <div class="combination-swatch" style="background: #FFFFFF;"></div>
+                                <div class="combination-swatch" style="background: #999999;"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="lang-content" data-lang="en">
-                    <div class="color-item">
-                        <h4>Coordination Rules</h4>
-                        <p>
-                            <strong>Complementary</strong>: Creates visual impact, ideal for expressing personality<br>
-                            <strong>Analogous</strong>: Establishes harmony, perfect for daily wear<br>
-                            <strong>Monochromatic</strong>: Showcases minimalist elegance, focuses on texture layers
-                        </p>
+
+                    <!-- 日文 -->
+                    <div class="lang-content" data-lang="ja">
+                        <h3 id="colorNameJA">色環をクリックして探索</h3>
+                        <p class="color-name" id="colorNameEnJA">Color Psychology</p>
+
+                        <div class="color-property">
+                            <div class="color-property-label">感情的連想</div>
+                            <div class="color-property-value" id="colorEmotionJA">色を選択して心理的意味を表示</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">適用シーン</div>
+                            <div class="color-property-value" id="colorOccasionJA">—</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">コーディネート提案</div>
+                            <div class="color-property-value" id="colorPairingJA">—</div>
+                        </div>
+
+                        <div class="color-swatch" id="colorSwatchJA"></div>
+
+                        <div class="color-combinations">
+                            <h4>おすすめ配色</h4>
+                            <div class="combination-swatches" id="combinationSwatchesJA">
+                                <div class="combination-swatch" style="background: #000000;"></div>
+                                <div class="combination-swatch" style="background: #FFFFFF;"></div>
+                                <div class="combination-swatch" style="background: #999999;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 英文 -->
+                    <div class="lang-content" data-lang="en">
+                        <h3 id="colorNameEN">Click to Explore</h3>
+                        <p class="color-name" id="colorNameEnEN">Color Psychology</p>
+
+                        <div class="color-property">
+                            <div class="color-property-label">Emotional Association</div>
+                            <div class="color-property-value" id="colorEmotionEN">Select a color to view its
+                                psychological meaning</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">Suitable Occasions</div>
+                            <div class="color-property-value" id="colorOccasionEN">—</div>
+                        </div>
+
+                        <div class="color-property">
+                            <div class="color-property-label">Pairing Suggestions</div>
+                            <div class="color-property-value" id="colorPairingEN">—</div>
+                        </div>
+
+                        <div class="color-swatch" id="colorSwatchEN"></div>
+
+                        <div class="color-combinations">
+                            <h4>Recommended Combinations</h4>
+                            <div class="combination-swatches" id="combinationSwatchesEN">
+                                <div class="combination-swatch" style="background: #000000;"></div>
+                                <div class="combination-swatch" style="background: #FFFFFF;"></div>
+                                <div class="combination-swatch" style="background: #999999;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 穿搭哲學內容 -->
-        <div class="knowledge-content" id="tab-philosophy">
+        <!-- ============================================
+             穿搭哲學內容
+             ============================================ -->
+        <div class="aesthetic-content" id="tab-philosophy">
             <div class="philosophy-grid">
                 <!-- 繁體中文 -->
                 <div class="lang-content active" data-lang="zh-TW">
                     <div class="philosophy-item">
-                        <h4>簡約即是美 <span class="jp">/ シンプルこそ美</span></h4>
-                        <p>真正的時尚不在於堆砌，而在於精簡。選擇經典單品，注重質感與剪裁，讓每一件衣物都能展現其本質之美。</p>
+                        <div class="philosophy-number">01</div>
+                        <h4>少即是多 <span class="jp">/ シンプルこそ美</span></h4>
+                        <p>真正的時尚不在堆砌，而在精煉。選擇經典單品，注重質感與剪裁，讓每一件衣服都能展現其本質之美。去除多餘，保留精華，這是我們對美的最高理解。</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">02</div>
                         <h4>穿出自我風格</h4>
-                        <p>時尚的本質是自我表達。了解自己的身型、膚色和生活方式，建立專屬的穿搭美學，而非盲目追隨潮流。</p>
+                        <p>時尚的本質是自我表達。了解自己的體型、膚色和生活方式，建立屬於自己的獨特美學，而非盲目追隨潮流。每個人的風格都值得被尊重和欣賞。</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">03</div>
                         <h4>配件的力量</h4>
-                        <p>一條絲巾、一只手錶、一雙鞋，都能改變整體造型。善用配件，能在簡約中創造層次，展現細節品味。</p>
+                        <p>一條圍巾、一只手錶、一雙鞋子都能改變整體造型。善用配件，能在簡約中創造層次，在細節處展現品味。配件是風格的標點符號，賦予穿搭靈魂。</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">04</div>
+                        <h4>質感勝過數量</h4>
+                        <p>投資經典、耐穿的高質感單品，遠勝於追逐快時尚。一件精心挑選的羊毛大衣，可以陪伴你十年；而十件廉價外套，可能一季就被遺忘。</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">05</div>
+                        <h4>顏色的和諧</h4>
+                        <p>理解色彩心理學，掌握配色原則。同色系營造優雅，對比色展現個性，中性色建立平衡。色彩是無聲的語言，傳達你的情緒與態度。</p>
                     </div>
                 </div>
 
                 <!-- 日文 -->
                 <div class="lang-content" data-lang="ja">
                     <div class="philosophy-item">
+                        <div class="philosophy-number">01</div>
                         <h4><span class="jp">シンプルこそ美</span></h4>
                         <p>本物のファッションは積み重ねではなく、シンプルさにあります。クラシックなアイテムを選び、質感とカットを重視し、各アイテムの本質的な美しさを引き出しましょう。</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">02</div>
                         <h4><span class="jp">自分らしさを着る</span></h4>
-                        <p>ファッションの本質は自己表現です。自分の体型、肌色、ライフスタイルを理解し、トレンドを盲目的に追うのではなく、独自のスタイル美学を確立しましょう。</p>
+                        <p>ファッションの本質は自己表現です。自分の体型、肌色、ライフスタイルを理解し、トレンドを盲目的に追うのではなく、独自の美学を確立しましょう。</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">03</div>
                         <h4><span class="jp">アクセサリーの力</span></h4>
-                        <p>スカーフ一枚、時計一つ、靴一足が全体の印象を変えます。アクセサリーを上手く使い、シンプルさの中に奥行きを作り、ディテールへのこだわりを表現しましょう。</p>
+                        <p>スカーフ一枚、時計一つ、靴一足が全体の印象を変えます。アクセサリーを上手く使い、シンプルさの中に深みを作り、細部にこだわりを表現しましょう。</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">04</div>
+                        <h4><span class="jp">質が量を超える</span></h4>
+                        <p>クラシックで長持ちする高品質なアイテムへの投資は、ファストファッションを追いかけるより価値があります。厳選されたウールコート一着が10年付き合えます。</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">05</div>
+                        <h4><span class="jp">色彩の調和</span></h4>
+                        <p>色彩心理学を理解し、配色の原則を掌握しましょう。同系色はエレガンスを、対比色は個性を、中性色はバランスを築きます。色彩は無言の言語です。</p>
                     </div>
                 </div>
 
                 <!-- 英文 -->
                 <div class="lang-content" data-lang="en">
                     <div class="philosophy-item">
-                        <h4>Simplicity is Beauty</h4>
-                        <p>True fashion is not about accumulation, but about refinement. Choose classic pieces, focus on texture and cut, and let each garment reveal its essential beauty.</p>
+                        <div class="philosophy-number">01</div>
+                        <h4>Less is More</h4>
+                        <p>True fashion is not about accumulation, but about refinement. Choose classic pieces, focus on
+                            texture and cut, and let each garment reveal its essential beauty.</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">02</div>
                         <h4>Wear Your Identity</h4>
-                        <p>The essence of fashion is self-expression. Understand your body type, skin tone, and lifestyle to establish your unique aesthetic, rather than blindly following trends.</p>
+                        <p>The essence of fashion is self-expression. Understand your body type, skin tone, and
+                            lifestyle to establish your unique aesthetic, rather than blindly following trends.</p>
                     </div>
+
                     <div class="philosophy-item">
+                        <div class="philosophy-number">03</div>
                         <h4>Power of Accessories</h4>
-                        <p>A scarf, a watch, a pair of shoes can transform your entire look. Master accessories to create depth in simplicity and showcase refined taste.</p>
+                        <p>A scarf, a watch, a pair of shoes can transform your entire look. Master accessories to
+                            create depth in simplicity and showcase refined taste.</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">04</div>
+                        <h4>Quality Over Quantity</h4>
+                        <p>Investing in classic, durable high-quality items surpasses chasing fast fashion. One
+                            carefully selected wool coat can accompany you for ten years.</p>
+                    </div>
+
+                    <div class="philosophy-item">
+                        <div class="philosophy-number">05</div>
+                        <h4>Color Harmony</h4>
+                        <p>Understand color psychology and master pairing principles. Monochromatic creates elegance,
+                            contrast shows personality, neutrals establish balance.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 時尚歷史內容 -->
-        <div class="knowledge-content" id="tab-history">
-            <div class="timeline-container">
+        <!-- ============================================
+             時尚歷史內容
+             ============================================ -->
+        <div class="aesthetic-content" id="tab-history">
+            <div class="history-timeline">
                 <!-- 繁體中文 -->
                 <div class="lang-content active" data-lang="zh-TW">
                     <div class="timeline-item">
@@ -2223,20 +2689,23 @@
                         <div class="timeline-title"><span class="en">Art Deco</span> 時代</div>
                         <div class="timeline-desc">Coco Chanel 革新女裝，小黑裙成為永恆經典，女性開始追求舒適與自由。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1950s</div>
                         <div class="timeline-title">優雅黃金時代</div>
                         <div class="timeline-desc">Christian Dior 的 New Look 重新定義女性輪廓，強調腰線與裙擺。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1990s</div>
                         <div class="timeline-title">極簡主義崛起</div>
                         <div class="timeline-desc">Calvin Klein、Jil Sander 提倡「少即是多」，純淨線條成為主流。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">2020s</div>
                         <div class="timeline-title"><span class="en">AI Fashion</span> 時代</div>
-                        <div class="timeline-desc">人工智能重新定義個人化穿搭，可持續時尚成為新趨勢。</div>
+                        <div class="timeline-desc">人工智慧重新定義個人化穿搭，可持續時尚成為新趨勢。</div>
                     </div>
                 </div>
 
@@ -2247,20 +2716,23 @@
                         <div class="timeline-title"><span class="en">Art Deco</span> 時代</div>
                         <div class="timeline-desc">ココ・シャネルが女性ファッションを革新、リトルブラックドレスが永遠の定番に。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1950s</div>
                         <div class="timeline-title">エレガンスの黄金時代</div>
                         <div class="timeline-desc">ディオールのニュールックが女性シルエットを再定義。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1990s</div>
                         <div class="timeline-title">ミニマリズムの台頭</div>
                         <div class="timeline-desc">「Less is More」が主流となり、純粋なラインが支配的に。</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">2020s</div>
                         <div class="timeline-title"><span class="en">AI Fashion</span> 時代</div>
-                        <div class="timeline-desc">AIがパーソナライズされたスタイルを再定義、サステナブルファッションが新トレンドに。</div>
+                        <div class="timeline-desc">AI がパーソナライズされたスタイルを再定義、サステナブルファッションが新トレンドに。</div>
                     </div>
                 </div>
 
@@ -2269,28 +2741,246 @@
                     <div class="timeline-item">
                         <div class="timeline-year">1920s</div>
                         <div class="timeline-title"><span class="en">Art Deco Era</span></div>
-                        <div class="timeline-desc">Coco Chanel revolutionized women's fashion, little black dress became eternal classic.</div>
+                        <div class="timeline-desc">Coco Chanel revolutionized women's fashion, little black dress became
+                            eternal classic.</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1950s</div>
                         <div class="timeline-title"><span class="en">Golden Age of Elegance</span></div>
                         <div class="timeline-desc">Christian Dior's New Look redefined feminine silhouette.</div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">1990s</div>
                         <div class="timeline-title"><span class="en">Rise of Minimalism</span></div>
-                        <div class="timeline-desc">"Less is More" became mainstream with clean lines dominating fashion.</div>
+                        <div class="timeline-desc">"Less is More" became mainstream with clean lines dominating fashion.
+                        </div>
                     </div>
+
                     <div class="timeline-item">
                         <div class="timeline-year">2020s</div>
                         <div class="timeline-title"><span class="en">AI Fashion Era</span></div>
-                        <div class="timeline-desc">AI redefines personalized styling, sustainable fashion becomes the new trend.</div>
+                        <div class="timeline-desc">AI redefines personalized styling, sustainable fashion becomes the
+                            new trend.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ============================================
+         我們的堅持 - 垂直卷軸式設計
+         ============================================ -->
+    <section class="philosophy-section" id="philosophy">
+        <!-- 標題屏幕 -->
+        <div class="philosophy-intro">
+            <h2>
+                <span class="lang-content active" data-lang="zh-TW">我們的堅持</span>
+                <span class="lang-content" data-lang="ja">私たちのこだわり</span>
+                <span class="lang-content" data-lang="en">Our Philosophy</span>
+            </h2>
+            <div class="philosophy-intro-line"></div>
+            <div class="scroll-hint">
+                <span class="lang-content active" data-lang="zh-TW">向下滾動</span>
+                <span class="lang-content" data-lang="ja">スクロール</span>
+                <span class="lang-content" data-lang="en">Scroll Down</span>
+            </div>
+        </div>
+
+        <!-- 核心理念 01 -->
+        <div class="philosophy-belief">
+            <div class="belief-number">01</div>
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <h3 class="belief-title">美是一種選擇</h3>
+                <p class="belief-subtitle">Beauty is a Choice</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    我們相信，美不是偶然，而是有意識的選擇。每一次穿搭都是表達自我的機會，每一個細節都承載著你的品味與態度。FlairAI 幫助你做出更明智的選擇。
+                </p>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <h3 class="belief-title vertical-text">美は選択</h3>
+                <p class="belief-subtitle">Beauty is a Choice</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    美は偶然ではなく、意識的な選択だと信じています。すべてのコーディネートは自己表現の機会であり、すべてのディテールにあなたのセンスと態度が込められています。
+                </p>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <h3 class="belief-title">Beauty is a Choice</h3>
+                <p class="belief-subtitle">Not an Accident</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    We believe beauty is not accidental, but a conscious choice. Every outfit is an opportunity for
+                    self-expression, every detail carries your taste and attitude.
+                </p>
+            </div>
+        </div>
+
+        <!-- 核心理念 02 -->
+        <div class="philosophy-belief">
+            <div class="belief-number">02</div>
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <h3 class="belief-title">簡約是最高級</h3>
+                <p class="belief-subtitle">Simplicity is Sophistication</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    去除多餘，保留本質。這不僅是我們的設計哲學，也是我們對美的理解。在紛繁複雜的世界中，我們追求純粹與簡潔，讓每一個元素都有其存在的理由。
+                </p>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <h3 class="belief-title vertical-text">簡素こそ最高級</h3>
+                <p class="belief-subtitle">Simplicity is Sophistication</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    余分を削ぎ落とし、本質を残す。これは私たちのデザイン哲学であり、美に対する理解です。複雑な世界で、純粋さとシンプルさを追求します。
+                </p>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <h3 class="belief-title">Simplicity is Sophistication</h3>
+                <p class="belief-subtitle">Less is More</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    Remove the excess, keep the essence. This is not only our design philosophy but also our
+                    understanding of beauty. Every element has a reason to exist.
+                </p>
+            </div>
+        </div>
+
+        <!-- 核心理念 03 -->
+        <div class="philosophy-belief">
+            <div class="belief-number">03</div>
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <h3 class="belief-title">每個細節都重要</h3>
+                <p class="belief-subtitle">Details Matter</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    從像素到體驗，從色彩到比例，我們關注每一個微小之處。因為我們知道，正是這些看似不起眼的細節，構成了卓越與平庸的差異。
+                </p>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <h3 class="belief-title vertical-text">細部が大切</h3>
+                <p class="belief-subtitle">Details Matter</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    ピクセルから体験まで、色彩から比率まで、すべての微細な部分に注意を払います。これらの細部が卓越性と平凡さの違いを生み出します。
+                </p>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <h3 class="belief-title">Details Matter</h3>
+                <p class="belief-subtitle">Every Pixel Counts</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    From pixels to experience, from color to proportion, we care about every small detail. These
+                    seemingly minor details make the difference between excellence and mediocrity.
+                </p>
+            </div>
+        </div>
+
+        <!-- 核心理念 04 -->
+        <div class="philosophy-belief">
+            <div class="belief-number">04</div>
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <h3 class="belief-title">科技服務美學</h3>
+                <p class="belief-subtitle">Technology Serves Aesthetics</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    AI 是工具，美才是目的。我們用科技賦能，但永遠以美為核心。技術應該隱於無形，讓使用者專注於創造和表達，而非被工具所束縛。
+                </p>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <h3 class="belief-title vertical-text">技術は美学に奉仕</h3>
+                <p class="belief-subtitle">Technology Serves Aesthetics</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    AI はツール、美こそが目的。技術で力を与えますが、常に美を中核とします。技術は目に見えないものであるべきです。
+                </p>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <h3 class="belief-title">Technology Serves Aesthetics</h3>
+                <p class="belief-subtitle">AI is the Tool, Beauty is the Goal</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    AI is a tool, beauty is the purpose. We empower with technology but always keep beauty at the core.
+                    Technology should be invisible, letting users focus on creation.
+                </p>
+            </div>
+        </div>
+
+        <!-- 核心理念 05 -->
+        <div class="philosophy-belief">
+            <div class="belief-number">05</div>
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <h3 class="belief-title">尊重個人風格</h3>
+                <p class="belief-subtitle">Respect Individual Style</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    我們分析但不評判，建議但不強加。每個人的風格都值得被看見和尊重。FlairAI 的使命是幫助你發現和提升自己的獨特性，而非讓你變成別人。
+                </p>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <h3 class="belief-title vertical-text">個性を尊重</h3>
+                <p class="belief-subtitle">Respect Individual Style</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    分析はしますが評価はしません。提案はしますが押し付けません。すべての人のスタイルは見られ、尊重される価値があります。
+                </p>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <h3 class="belief-title">Respect Individual Style</h3>
+                <p class="belief-subtitle">We Analyze, Not Judge</p>
+                <div class="belief-line"></div>
+                <p class="belief-description">
+                    We analyze but don't judge, suggest but don't impose. Everyone's style deserves to be seen and
+                    respected. Our mission is to help you discover your uniqueness.
+                </p>
+            </div>
+        </div>
+
+        <!-- 總結屏幕 -->
+        <div class="philosophy-conclusion">
+            <!-- 繁體中文 -->
+            <div class="lang-content active" data-lang="zh-TW">
+                <p class="conclusion-statement">
+                    這些信念，構成了 FlairAI 的靈魂。<br>
+                    我們不僅是工具，更是你探索美學旅程的夥伴。
+                </p>
+                <div class="conclusion-signature">FLAIRAI / 2025</div>
+            </div>
+            <!-- 日文 -->
+            <div class="lang-content" data-lang="ja">
+                <p class="conclusion-statement">
+                    これらの信念が FlairAI の魂を形作ります。<br>
+                    私たちは単なるツールではなく、美学の旅のパートナーです。
+                </p>
+                <div class="conclusion-signature">FLAIRAI / 2025</div>
+            </div>
+            <!-- 英文 -->
+            <div class="lang-content" data-lang="en">
+                <p class="conclusion-statement">
+                    These beliefs form the soul of FlairAI.<br>
+                    We are not just a tool, but your partner in the aesthetic journey.
+                </p>
+                <div class="conclusion-signature">FLAIRAI / 2025</div>
+            </div>
+        </div>
+    </section>
     <!-- App展示區 -->
     <section class="app-showcase fade-in" id="download">
         <div class="app-mockup">
@@ -2334,7 +3024,9 @@
     </footer>
 
     <script>
+        // ============================================
         // ASCII 字符庫 - 只使用英文字母
+        // ============================================
         const fashionChars = {
             en: ['F', 'l', 'a', 'i', 'r', 'A', 'I', 'S', 't', 'y', 'e', 'C', 'h', 'i', 'c', 'W', 'e', 'a', 'r', 'M', 'o', 'd', 'n']
         };
@@ -2354,14 +3046,14 @@
             '     :@@@*             -@@@   *@@:   -@@@.    %@@@    +@@@         %@.        %@@@-       @@@%     ',
             '     -@@@#             =@@@  .@@@@-:*@@@@.-: .%@@@    +@@@       .%@:          @@@@-     .@@@@.    ',
             '  +@@@@@@@@@@.       .@@@@@@+ .%@@@*..@@@@. *@@@@@@:*@@@@@@@.  .@@@@@@=     .%@@@@@@@#:@@@@@@@@@@. ',
-            '                                                                                                   ',
-            '                                                                                                   '
+            '                                                                                                        ',
+            '                                                                                                        '
         ];
 
         let currentAsciiState = null;
         let currentOverlayState = null;
 
-        // 生成 ASCII 藝術 - 英文字母
+        // 生成 ASCII 藝術
         function generateASCII() {
             let asciiArt = '';
             let overlayArt = '';
@@ -2369,14 +3061,14 @@
             flairTemplate.forEach((line) => {
                 let asciiLine = '';
                 let overlayLine = '';
-                
+
                 for (let i = 0; i < line.length; i++) {
                     const char = line[i];
-                    
+
                     if (char !== ' ') {
                         const enChar = fashionChars.en[Math.floor(Math.random() * fashionChars.en.length)];
                         asciiLine += enChar;
-                        
+
                         const overlayChar = fashionChars.en[Math.floor(Math.random() * fashionChars.en.length)];
                         overlayLine += overlayChar;
                     } else {
@@ -2384,7 +3076,7 @@
                         overlayLine += ' ';
                     }
                 }
-                
+
                 asciiArt += asciiLine + '\n';
                 overlayArt += overlayLine + '\n';
             });
@@ -2397,31 +3089,31 @@
             const { asciiArt, overlayArt } = generateASCII();
             currentAsciiState = asciiArt.split('\n').map(line => line.split(''));
             currentOverlayState = overlayArt.split('\n').map(line => line.split(''));
-            
+
             document.getElementById('asciiArt').textContent = asciiArt;
             document.getElementById('asciiOverlay').textContent = overlayArt;
         }
 
-        // 亂碼動態更新
+        // 亂碼動畫更新
         function glitchUpdate() {
             let newAscii = '';
             let newOverlay = '';
-            
+
             flairTemplate.forEach((line, lineIndex) => {
                 let asciiLine = '';
                 let overlayLine = '';
-                
+
                 for (let i = 0; i < line.length; i++) {
                     const char = line[i];
-                    
+
                     if (char !== ' ') {
                         if (Math.random() < 0.05) {
                             const asciiChar = fashionChars.en[Math.floor(Math.random() * fashionChars.en.length)];
                             const overlayChar = fashionChars.en[Math.floor(Math.random() * fashionChars.en.length)];
-                            
+
                             asciiLine += asciiChar;
                             overlayLine += overlayChar;
-                            
+
                             if (currentAsciiState[lineIndex]) {
                                 currentAsciiState[lineIndex][i] = asciiChar;
                                 currentOverlayState[lineIndex][i] = overlayChar;
@@ -2435,27 +3127,29 @@
                         overlayLine += ' ';
                     }
                 }
-                
+
                 newAscii += asciiLine + '\n';
                 newOverlay += overlayLine + '\n';
             });
-            
+
             document.getElementById('asciiArt').textContent = newAscii;
             document.getElementById('asciiOverlay').textContent = newOverlay;
         }
 
+        // ============================================
         // 視差滾動效果
+        // ============================================
         let ticking = false;
-        
+
         function updateParallax() {
             const scrolled = window.pageYOffset;
             const parallaxLayers = document.querySelectorAll('.parallax-layer');
-            
+
             parallaxLayers.forEach((layer, index) => {
                 const speed = (index + 1) * 0.1;
                 layer.style.transform = `translateY(${scrolled * speed}px)`;
             });
-            
+
             ticking = false;
         }
 
@@ -2466,18 +3160,20 @@
             }
         });
 
-        // 知識區標籤切換
-        const knowledgeTabs = document.querySelectorAll('.knowledge-tab');
-        const knowledgeContents = document.querySelectorAll('.knowledge-content');
+        // ============================================
+        // 美學洞察標籤切換
+        // ============================================
+        const aestheticTabs = document.querySelectorAll('.aesthetic-tab');
+        const aestheticContents = document.querySelectorAll('.aesthetic-content');
 
-        knowledgeTabs.forEach(tab => {
+        aestheticTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const targetTab = tab.getAttribute('data-tab');
-                
-                knowledgeTabs.forEach(t => t.classList.remove('active'));
+
+                aestheticTabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
-                knowledgeContents.forEach(content => {
+
+                aestheticContents.forEach(content => {
                     if (content.id === `tab-${targetTab}`) {
                         content.classList.add('active');
                     } else {
@@ -2487,7 +3183,216 @@
             });
         });
 
+        // ============================================
+        // 互動式色盤功能
+        // ============================================
+        const colorData = {
+            red: {
+                name: { 'zh-TW': '紅色', 'ja': '赤', 'en': 'Red' },
+                emotion: {
+                    'zh-TW': '熱情、力量、自信',
+                    'ja': '情熱、力、自信',
+                    'en': 'Passion, Power, Confidence'
+                },
+                occasion: {
+                    'zh-TW': '重要場合、晚宴、慶典',
+                    'ja': '重要なイベント、ディナー、祝典',
+                    'en': 'Important events, Dinners, Celebrations'
+                },
+                pairing: {
+                    'zh-TW': '與黑色、白色、金色搭配最佳',
+                    'ja': '黒、白、金と相性抜群',
+                    'en': 'Best paired with black, white, gold'
+                },
+                color: '#C41E3A',
+                combinations: ['#000000', '#FFFFFF', '#D4AF37']
+            },
+            blue: {
+                name: { 'zh-TW': '藍色', 'ja': '青', 'en': 'Blue' },
+                emotion: {
+                    'zh-TW': '信任、穩定、專業',
+                    'ja': '信頼、安定、プロフェッショナル',
+                    'en': 'Trust, Stability, Professional'
+                },
+                occasion: {
+                    'zh-TW': '商務場合、日常通勤',
+                    'ja': 'ビジネスシーン、通勤',
+                    'en': 'Business, Daily commute'
+                },
+                pairing: {
+                    'zh-TW': '與白色、灰色、卡其色搭配',
+                    'ja': '白、グレー、ベージュと合わせて',
+                    'en': 'Pair with white, gray, khaki'
+                },
+                color: '#0047AB',
+                combinations: ['#FFFFFF', '#808080', '#C3B091']
+            },
+            green: {
+                name: { 'zh-TW': '綠色', 'ja': '緑', 'en': 'Green' },
+                emotion: {
+                    'zh-TW': '自然、平和、成長',
+                    'ja': '自然、平和、成長',
+                    'en': 'Nature, Peace, Growth'
+                },
+                occasion: {
+                    'zh-TW': '休閒、戶外活動',
+                    'ja': 'カジュアル、アウトドア',
+                    'en': 'Casual, Outdoor activities'
+                },
+                pairing: {
+                    'zh-TW': '與米色、棕色、白色搭配',
+                    'ja': 'ベージュ、茶色、白と',
+                    'en': 'Pair with beige, brown, white'
+                },
+                color: '#2D5016',
+                combinations: ['#F5F5DC', '#8B4513', '#FFFFFF']
+            },
+            yellow: {
+                name: { 'zh-TW': '黃色', 'ja': '黄色', 'en': 'Yellow' },
+                emotion: {
+                    'zh-TW': '樂觀、活力、創意',
+                    'ja': '楽観的、活力、創造性',
+                    'en': 'Optimism, Energy, Creativity'
+                },
+                occasion: {
+                    'zh-TW': '春夏季節、休閒聚會',
+                    'ja': '春夏、カジュアルな集まり',
+                    'en': 'Spring/Summer, Casual gatherings'
+                },
+                pairing: {
+                    'zh-TW': '與海軍藍、灰色、白色搭配',
+                    'ja': 'ネイビー、グレー、白と',
+                    'en': 'Pair with navy, gray, white'
+                },
+                color: '#FFD700',
+                combinations: ['#000080', '#808080', '#FFFFFF']
+            },
+            black: {
+                name: { 'zh-TW': '黑色', 'ja': '黒', 'en': 'Black' },
+                emotion: {
+                    'zh-TW': '權威、優雅、神秘',
+                    'ja': '権威、エレガンス、神秘',
+                    'en': 'Authority, Elegance, Mystery'
+                },
+                occasion: {
+                    'zh-TW': '任何正式場合、晚宴',
+                    'ja': 'フォーマルな場、ディナー',
+                    'en': 'Any formal occasion, Dinners'
+                },
+                pairing: {
+                    'zh-TW': '萬能色，與任何顏色搭配',
+                    'ja': '万能色、どんな色とも合う',
+                    'en': 'Universal, pairs with any color'
+                },
+                color: '#000000',
+                combinations: ['#FFFFFF', '#D4AF37', '#C41E3A']
+            },
+            white: {
+                name: { 'zh-TW': '白色', 'ja': '白', 'en': 'White' },
+                emotion: {
+                    'zh-TW': '純淨、簡約、現代',
+                    'ja': '純粋、シンプル、モダン',
+                    'en': 'Purity, Minimalism, Modern'
+                },
+                occasion: {
+                    'zh-TW': '夏季、休閒、商務',
+                    'ja': '夏、カジュアル、ビジネス',
+                    'en': 'Summer, Casual, Business'
+                },
+                pairing: {
+                    'zh-TW': '萬能色，清新百搭',
+                    'ja': '万能色、清潔感',
+                    'en': 'Universal, fresh and versatile'
+                },
+                color: '#FFFFFF',
+                combinations: ['#000000', '#0047AB', '#2D5016']
+            }
+        };
+
+        // 創建色環
+        function createColorWheel() {
+            const svg = document.getElementById('colorWheelSVG');
+            const segmentsGroup = document.getElementById('colorSegments');
+            const colors = ['red', 'yellow', 'green', 'blue', 'black', 'white'];
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 150;
+            const innerRadius = 80;
+            const angleStep = 360 / colors.length;
+
+            colors.forEach((colorKey, index) => {
+                const startAngle = index * angleStep - 90;
+                const endAngle = (index + 1) * angleStep - 90;
+
+                const x1 = centerX + radius * Math.cos(startAngle * Math.PI / 180);
+                const y1 = centerY + radius * Math.sin(startAngle * Math.PI / 180);
+                const x2 = centerX + radius * Math.cos(endAngle * Math.PI / 180);
+                const y2 = centerY + radius * Math.sin(endAngle * Math.PI / 180);
+
+                const ix1 = centerX + innerRadius * Math.cos(startAngle * Math.PI / 180);
+                const iy1 = centerY + innerRadius * Math.sin(startAngle * Math.PI / 180);
+                const ix2 = centerX + innerRadius * Math.cos(endAngle * Math.PI / 180);
+                const iy2 = centerY + innerRadius * Math.sin(endAngle * Math.PI / 180);
+
+                const pathData = `
+                    M ${x1} ${y1}
+                    A ${radius} ${radius} 0 0 1 ${x2} ${y2}
+                    L ${ix2} ${iy2}
+                    A ${innerRadius} ${innerRadius} 0 0 0 ${ix1} ${iy1}
+                    Z
+                `;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathData);
+                path.setAttribute('fill', colorData[colorKey].color);
+                path.setAttribute('class', 'color-segment');
+                path.setAttribute('data-color', colorKey);
+
+                path.addEventListener('click', () => updateColorInfo(colorKey));
+
+                segmentsGroup.appendChild(path);
+            });
+        }
+
+        // 更新色彩信息
+        function updateColorInfo(colorKey) {
+            const data = colorData[colorKey];
+            const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+
+            // 更新各語言版本
+            ['zh-TW', 'ja', 'en'].forEach(lang => {
+                const suffix = lang === 'zh-TW' ? 'ZH' : (lang === 'ja' ? 'JA' : 'EN');
+
+                const nameEl = document.getElementById(`colorName${suffix}`);
+                const nameEnEl = document.getElementById(`colorNameEn${suffix}`);
+                const emotionEl = document.getElementById(`colorEmotion${suffix}`);
+                const occasionEl = document.getElementById(`colorOccasion${suffix}`);
+                const pairingEl = document.getElementById(`colorPairing${suffix}`);
+                const swatchEl = document.getElementById(`colorSwatch${suffix}`);
+                const combinationsEl = document.getElementById(`combinationSwatches${suffix}`);
+
+                if (nameEl) nameEl.textContent = data.name[lang];
+                if (nameEnEl) nameEnEl.textContent = data.name['en'];
+                if (emotionEl) emotionEl.textContent = data.emotion[lang];
+                if (occasionEl) occasionEl.textContent = data.occasion[lang];
+                if (pairingEl) pairingEl.textContent = data.pairing[lang];
+                if (swatchEl) swatchEl.style.background = data.color;
+
+                if (combinationsEl) {
+                    combinationsEl.innerHTML = '';
+                    data.combinations.forEach(color => {
+                        const swatch = document.createElement('div');
+                        swatch.className = 'combination-swatch';
+                        swatch.style.background = color;
+                        combinationsEl.appendChild(swatch);
+                    });
+                }
+            });
+        }
+
+        // ============================================
         // 法律頁面模態窗口
+        // ============================================
         const termsModal = document.getElementById('termsModal');
         const privacyModal = document.getElementById('privacyModal');
         const contactModal = document.getElementById('contactModal');
@@ -2553,21 +3458,24 @@
             }
         });
 
+        // ============================================
         // 複製郵箱功能
+        // ============================================
         const copyEmailBtn = document.getElementById('copyEmailBtn');
         copyEmailBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText('notlingisnotling@gmail.com').then(() => {
+            navigator.clipboard.writeText('notlinginotling@gmail.com').then(() => {
                 const originalText = copyEmailBtn.innerHTML;
                 copyEmailBtn.classList.add('copied');
-                
-                if (document.querySelector('.lang-btn.active').getAttribute('data-lang') === 'zh-TW') {
+
+                const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+                if (currentLang === 'zh-TW') {
                     copyEmailBtn.textContent = '已複製！';
-                } else if (document.querySelector('.lang-btn.active').getAttribute('data-lang') === 'ja') {
+                } else if (currentLang === 'ja') {
                     copyEmailBtn.textContent = 'コピーしました！';
                 } else {
                     copyEmailBtn.textContent = 'Copied!';
                 }
-                
+
                 setTimeout(() => {
                     copyEmailBtn.classList.remove('copied');
                     copyEmailBtn.innerHTML = originalText;
@@ -2575,16 +3483,18 @@
             });
         });
 
+        // ============================================
         // 語言切換功能
+        // ============================================
         const langButtons = document.querySelectorAll('.lang-btn');
 
         langButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.getAttribute('data-lang');
-                
+
                 langButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 document.querySelectorAll('.lang-content').forEach(content => {
                     if (content.getAttribute('data-lang') === lang) {
                         content.classList.add('active');
@@ -2595,8 +3505,62 @@
             });
         });
 
+        // ============================================
+        // 我們的堅持 - 滾動動畫
+        // ============================================
+        const beliefObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        document.querySelectorAll('.philosophy-belief').forEach(belief => {
+            beliefObserver.observe(belief);
+        });
+
+        // ============================================
+        // 穿搭哲學項目滾動動畫
+        // ============================================
+        const philosophyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        document.querySelectorAll('.philosophy-item').forEach(item => {
+            philosophyObserver.observe(item);
+        });
+
+        // ============================================
+        // 時間軸滾動動畫
+        // ============================================
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // ============================================
         // 初始化
+        // ============================================
         initASCII();
+        createColorWheel();
         setInterval(glitchUpdate, 150);
 
         // 頁面載入
@@ -2606,7 +3570,9 @@
             }, 1500);
         });
 
+        // ============================================
         // 選單切換
+        // ============================================
         const menuToggle = document.getElementById('menuToggle');
         const fullscreenMenu = document.getElementById('fullscreenMenu');
 
@@ -2622,18 +3588,20 @@
                 e.preventDefault();
                 const targetId = link.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                
+
                 menuToggle.classList.remove('active');
                 fullscreenMenu.classList.remove('active');
                 document.body.style.overflow = 'auto';
-                
+
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
 
+        // ============================================
         // 滾動動畫
+        // ============================================
         const observerOptions = {
             threshold: 0.2,
             rootMargin: '0px 0px -100px 0px'
@@ -2651,7 +3619,9 @@
             observer.observe(el);
         });
 
+        // ============================================
         // 平滑滾動
+        // ============================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -2668,7 +3638,9 @@
             });
         });
 
+        // ============================================
         // 導航欄滾動效果
+        // ============================================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -2679,4 +3651,5 @@
         });
     </script>
 </body>
+
 </html>
