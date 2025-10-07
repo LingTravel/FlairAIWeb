@@ -1,0 +1,686 @@
+/* ============================================
+   主要樣式文件 - main.css
+   基礎設定、變數、通用樣式
+   ============================================ */
+
+/* CSS 變數定義 */
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-dark: #666666;
+    --gray-mid: #999999;
+    --gray-light: #CCCCCC;
+    --bg-light: #F8F8F8;
+    --bg-ultra-light: #FAFAFA;
+    --paper: #FAFAF8;
+    --accent-gold: #D4AF37;
+}
+
+/* 基礎重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body 基礎樣式 */
+body {
+    font-family: 'Noto Serif TC', serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+    line-height: 1.8;
+}
+
+/* 紙質紋理效果 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 50%, transparent 0%, rgba(0, 0, 0, 0.008) 100%),
+        radial-gradient(circle at 80% 80%, transparent 0%, rgba(0, 0, 0, 0.005) 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+/* ============================================
+   導航欄樣式
+   ============================================ */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0);
+    transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--black);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    letter-spacing: 4px;
+}
+
+/* 語言切換 */
+.language-switcher {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.lang-btn {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Noto Serif TC', serif;
+    padding: 5px 0;
+    position: relative;
+}
+
+.lang-btn.active {
+    color: var(--black);
+}
+
+.lang-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--black);
+}
+
+.lang-btn:hover {
+    color: var(--black);
+}
+
+.lang-divider {
+    width: 1px;
+    height: 12px;
+    background: var(--gray-light);
+}
+
+/* 選單切換按鈕 */
+.menu-toggle {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 1px;
+    background: var(--black);
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ============================================
+   全屏選單
+   ============================================ */
+.fullscreen-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    z-index: 999;
+}
+
+.fullscreen-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-items {
+    list-style: none;
+    text-align: center;
+}
+
+.menu-items li {
+    margin: 40px 0;
+    overflow: hidden;
+}
+
+.menu-items a {
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 4px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.menu-items a:hover {
+    transform: scale(1.05);
+    letter-spacing: 8px;
+}
+
+/* ============================================
+   Hero 區域
+   ============================================ */
+.hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 38% 62%;
+    position: relative;
+    overflow: hidden;
+    background: var(--white);
+}
+
+/* 視差背景層 */
+.parallax-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.parallax-layer-1 {
+    background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    z-index: 1;
+}
+
+.parallax-layer-2 {
+    background: radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
+    z-index: 1;
+}
+
+/* 左側區域 */
+.hero-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 140px 0 0 80px;
+    z-index: 3;
+}
+
+.hero-label {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gray-mid);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.3s forwards;
+}
+
+.hero-title-group {
+    max-width: 400px;
+}
+
+.hero-subtitle-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(24px, 3vw, 42px);
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: var(--black);
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.5s forwards;
+}
+
+.hero-subtitle-cn {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 500;
+    color: var(--black);
+    line-height: 1.4;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.7s forwards;
+}
+
+.hero-description {
+    margin-top: 60px;
+    font-size: 14px;
+    line-height: 2.2;
+    color: var(--gray-dark);
+    max-width: 360px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.9s forwards;
+}
+
+/* 中間分隔線 */
+.hero-divider {
+    position: absolute;
+    left: 38%;
+    top: 140px;
+    bottom: 140px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gray-light) 10%, var(--gray-light) 90%, transparent);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* 右側區域 - ASCII 動畫 */
+.hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 60px;
+    padding-right: 120px;
+    z-index: 2;
+}
+
+/* ASCII 動畫定義 */
+.ascii-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(2.8);
+    opacity: 0;
+    animation: fadeIn 1.5s ease 0.5s forwards;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+}
+
+.ascii-art {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(2.5px, 0.3vw, 4px);
+    line-height: 1.15;
+    white-space: pre;
+    color: var(--black);
+    letter-spacing: 0;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.ascii-overlay {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(2.5px, 0.3vw, 4px);
+    line-height: 1.15;
+    white-space: pre;
+    color: rgba(0, 0, 0, 0.12);
+    letter-spacing: 0;
+    text-align: left;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 1;
+}
+
+/* 裝飾文字 */
+.hero-vertical-text {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 12px;
+    color: var(--gray-mid);
+    z-index: 4;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1s forwards;
+}
+
+/* 頁碼 */
+.page-number {
+    position: absolute;
+    bottom: 60px;
+    left: 80px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gray-mid);
+    z-index: 3;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1.2s forwards;
+}
+
+/* 裝飾點 */
+.hero-dot {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gray-light);
+    border-radius: 50%;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1.4s forwards;
+}
+
+/* 裝飾文字元素 */
+.decorative-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 120px;
+    color: rgba(212, 175, 55, 0.03);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.decorative-text-1 {
+    top: 20%;
+    right: 10%;
+}
+
+/* ============================================
+   動畫定義
+   ============================================ */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        transform: translateY(30px);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   概念介紹區
+   ============================================ */
+.concept {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding: 120px 60px;
+    position: relative;
+    background: var(--paper);
+    box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.concept-left {
+    position: relative;
+}
+
+.concept-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 240px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.02);
+    font-family: 'Cormorant Garamond', serif;
+    z-index: 1;
+}
+
+.concept-right {
+    padding-left: 80px;
+    position: relative;
+    z-index: 2;
+}
+
+.section-label {
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--gray-mid);
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.section-label::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-gold);
+}
+
+.concept-title {
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 500;
+    margin-bottom: 40px;
+    line-height: 1.3;
+}
+
+.mixed-typography {
+    font-size: 18px;
+    color: var(--gray-dark);
+    margin-bottom: 30px;
+    line-height: 2;
+}
+
+.mixed-typography .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.concept-text {
+    font-size: 18px;
+    color: var(--gray-dark);
+    margin-bottom: 30px;
+    line-height: 2;
+}
+
+.mixed-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px;
+    color: var(--gray-mid);
+    font-weight: 300;
+    margin-top: 60px;
+    padding: 30px 0;
+    border-top: 1px solid var(--gray-light);
+    border-bottom: 1px solid var(--gray-light);
+}
+
+/* ============================================
+   功能展示區
+   ============================================ */
+.features {
+    min-height: 100vh;
+    padding: 120px 60px 60px;
+    background: var(--white);
+    position: relative;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    margin-top: 100px;
+}
+
+.feature-item {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    padding: 40px;
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+}
+
+.feature-item:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+}
+
+.feature-item:nth-child(1) {
+    transform: translateY(-40px);
+}
+
+.feature-item:nth-child(2) {
+    transform: translateY(40px);
+}
+
+.feature-item:nth-child(1):hover {
+    transform: translateY(-45px);
+}
+
+.feature-item:nth-child(2):hover {
+    transform: translateY(35px);
+}
+
+.feature-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.feature-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.feature-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+}
+
+.feature-title-jp {
+    font-family: 'Noto Serif JP', serif;
+}
+
+.feature-desc {
+    font-size: 16px;
+    color: var(--gray-dark);
+    line-height: 2;
+}
+
+/* ============================================
+   載入動畫
+   ============================================ */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 8px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   多語言元素控制
+   ============================================ */
+.lang-content {
+    display: none;
+}
+
+.lang-content.active {
+    display: block;
+}
+
+.lang-content.inline {
+    display: none;
+}
+
+.lang-content.inline.active {
+    display: inline;
+}
+
+/* ============================================
+   滾動動畫
+   ============================================ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

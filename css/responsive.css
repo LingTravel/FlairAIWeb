@@ -1,0 +1,897 @@
+/* ============================================
+   響應式樣式文件 - responsive.css
+   平板和手機版本的適配
+   ============================================ */
+
+/* ============================================
+   平板版本 (1024px 以下)
+   ============================================ */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 20px 40px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .hero-left {
+        padding: 120px 40px 60px;
+    }
+
+    .hero-divider {
+        display: none;
+    }
+
+    .hero-right {
+        padding: 60px 40px;
+        justify-content: center;
+        min-height: 50vh;
+    }
+
+    .ascii-container {
+        transform: scale(2);
+    }
+
+    .concept {
+        grid-template-columns: 1fr;
+        padding: 80px 40px;
+    }
+
+    .concept-right {
+        padding-left: 0;
+        margin-top: 60px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+
+    .feature-item:nth-child(1),
+    .feature-item:nth-child(2) {
+        transform: translateY(0);
+    }
+
+    .feature-item:nth-child(1):hover,
+    .feature-item:nth-child(2):hover {
+        transform: translateY(-5px);
+    }
+
+    .aesthetic-tabs {
+        gap: 30px;
+    }
+
+    .color-theory-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .philosophy-grid {
+        gap: 40px;
+    }
+
+    .download-text {
+        position: static;
+        writing-mode: horizontal-tb;
+        margin-top: 60px;
+        transform: none;
+        font-size: 48px;
+    }
+
+    .app-showcase {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* 我們的堅持 - 平板版 */
+    .beliefs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .belief-card-title {
+        font-size: 24px;
+        min-height: 70px;
+    }
+
+    /* HSL色彩理論 - 平板版 */
+    .color-theory-new-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .hsl-control-area {
+        position: static;
+    }
+
+    .hsl-color-wheel-wrapper {
+        max-width: 400px;
+    }
+
+    .color-schemes-area {
+        padding: 32px 24px;
+    }
+}
+
+/* ============================================
+   手機版本 (768px 以下)
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* 導航欄 */
+    .navbar {
+        padding: 20px 30px;
+    }
+
+    .navbar-left {
+        gap: 20px;
+    }
+
+    .language-switcher {
+        gap: 10px;
+    }
+
+    .lang-btn {
+        font-size: 10px;
+    }
+
+    /* Hero 區域 */
+    .hero-left {
+        padding: 100px 30px 40px;
+    }
+
+    .hero-right {
+        padding: 40px 30px;
+    }
+
+    .ascii-container {
+        transform: scale(1.5);
+    }
+
+    .hero-vertical-text {
+        right: 20px;
+        font-size: 9px;
+        letter-spacing: 8px;
+    }
+
+    .page-number {
+        left: 30px;
+        bottom: 40px;
+    }
+
+    .hero-dot {
+        right: 30px;
+        bottom: 40px;
+    }
+
+    /* 通用區塊 */
+    .concept,
+    .features,
+    .aesthetic-insights,
+    .app-showcase {
+        padding: 60px 30px;
+    }
+
+    /* 全屏選單 */
+    .menu-items a {
+        font-size: 32px;
+    }
+
+    .menu-items li {
+        margin: 30px 0;
+    }
+
+    /* 概念區域 */
+    .concept-decoration {
+        font-size: 120px;
+    }
+
+    .section-label {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    /* 功能展示 */
+    .feature-number {
+        font-size: 80px;
+    }
+
+    .feature-title {
+        font-size: 28px;
+    }
+
+    .feature-desc {
+        font-size: 14px;
+    }
+
+    /* 美學洞察 */
+    .aesthetic-header h2 {
+        font-size: 32px;
+    }
+
+    .aesthetic-tabs {
+        flex-direction: column;
+        gap: 0;
+        border-bottom: none;
+    }
+
+    .aesthetic-tab {
+        border-bottom: 0.5px solid var(--gray-light);
+        padding: 15px 0;
+    }
+
+    .aesthetic-tab.active::after {
+        display: none;
+    }
+
+    .aesthetic-tab-title {
+        font-size: 16px;
+    }
+
+    /* 色彩理論 */
+    .interactive-color-wheel {
+        max-width: 350px;
+    }
+
+    .color-wheel-center {
+        width: 80px;
+        height: 80px;
+        font-size: 11px;
+    }
+
+    .color-info-display {
+        padding: 30px 20px;
+    }
+
+    .color-info-display h3 {
+        font-size: 24px;
+    }
+
+    .color-property-label {
+        font-size: 11px;
+    }
+
+    .color-property-value {
+        font-size: 14px;
+    }
+
+    .combination-swatch {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* 穿搭哲學 */
+    .philosophy-item {
+        padding-left: 30px;
+    }
+
+    .philosophy-item h4 {
+        font-size: 22px;
+    }
+
+    .philosophy-item p {
+        font-size: 14px;
+    }
+
+    /* 時尚歷史 */
+    .history-timeline {
+        padding-left: 60px;
+    }
+
+    .history-timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 0;
+    }
+
+    .timeline-item::before {
+        left: -26px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .timeline-year {
+        font-size: 32px;
+    }
+
+    .timeline-title {
+        font-size: 20px;
+    }
+
+    .timeline-desc {
+        font-size: 14px;
+    }
+
+    /* 我們的堅持 */
+    .philosophy-intro h2 {
+        font-size: 36px;
+        letter-spacing: 4px;
+    }
+
+    .belief-title {
+        font-size: 42px;
+    }
+
+    .belief-title.vertical-text {
+        writing-mode: horizontal-tb;
+        letter-spacing: 4px;
+    }
+
+    .belief-subtitle {
+        font-size: 18px;
+    }
+
+    .belief-description {
+        font-size: 14px;
+        padding: 0 20px;
+    }
+
+    .philosophy-belief {
+        padding: 80px 30px;
+    }
+
+    .conclusion-statement {
+        font-size: 20px;
+        padding: 0 20px;
+    }
+
+    .conclusion-signature {
+        font-size: 14px;
+    }
+
+    /* App 展示 */
+    .phone-frame {
+        transform: rotate(-10deg);
+        width: 250px;
+        height: 500px;
+    }
+
+    .phone-frame::before {
+        font-size: 36px;
+    }
+
+    .phone-frame:hover {
+        transform: rotate(-8deg) scale(1.02);
+    }
+
+    .download-text {
+        font-size: 36px;
+        margin-top: 40px;
+    }
+
+    .app-note {
+        position: static;
+        margin-top: 40px;
+        transform: none;
+    }
+
+    /* 頁尾 */
+    .footer {
+        padding: 40px 30px;
+    }
+
+    .footer-links {
+        gap: 15px;
+    }
+
+    .footer-link {
+        font-size: 12px;
+    }
+
+    .footer-copyright {
+        font-size: 11px;
+    }
+
+    /* 模態窗口 */
+    .legal-content,
+    .contact-card {
+        padding: 40px 30px;
+        width: 95%;
+    }
+
+    .legal-title {
+        font-size: 36px;
+    }
+
+    .legal-section h3 {
+        font-size: 18px;
+    }
+
+    .legal-section h3 .number {
+        font-size: 24px;
+    }
+
+    .legal-section p,
+    .legal-section li {
+        font-size: 13px;
+    }
+
+    .contact-title {
+        font-size: 24px;
+    }
+
+    .contact-email {
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    .contact-copy-btn {
+        padding: 10px 24px;
+        font-size: 13px;
+    }
+
+    .contact-note {
+        font-size: 12px;
+    }
+
+    /* ASCII 字體調整 */
+    .ascii-art,
+    .ascii-overlay {
+        font-size: clamp(2px, 0.4vw, 3.5px);
+    }
+
+    /* 載入動畫 */
+    .loader-text {
+        font-size: 32px;
+        letter-spacing: 4px;
+    }
+
+    /* 我們的堅持 - 手機版 */
+    .philosophy-section-new {
+        padding: 80px 30px;
+    }
+
+    .philosophy-header {
+        margin-bottom: 60px;
+    }
+
+    .philosophy-main-title {
+        font-size: 36px;
+        letter-spacing: 2px;
+    }
+
+    .philosophy-subtitle {
+        font-size: 14px;
+    }
+
+    .beliefs-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .belief-card-inner {
+        padding: 24px;
+    }
+
+    .belief-number {
+        top: 16px;
+        left: 20px;
+        font-size: 11px;
+    }
+
+    .belief-card-title {
+        font-size: 22px;
+        margin: 36px 0 16px;
+        min-height: 60px;
+    }
+
+    .belief-subtitle {
+        font-size: 13px;
+    }
+
+    .belief-description {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .philosophy-conclusion {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+
+    /* HSL色彩理論 - 手機版 */
+    .hsl-color-wheel-wrapper {
+        max-width: 320px;
+        margin-bottom: 32px;
+    }
+
+    .hsl-center-display {
+        width: 100px;
+        height: 100px;
+    }
+
+    .current-color-preview {
+        width: 70px;
+        height: 70px;
+    }
+
+    .hsl-selector {
+        width: 16px;
+        height: 16px;
+        margin: -8px 0 0 -8px;
+    }
+
+    .hsl-selector-dot {
+        width: 16px;
+        height: 16px;
+    }
+
+    .hsl-slider-track {
+        height: 36px;
+    }
+
+    .hsl-slider::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+
+    .hsl-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+    }
+
+    .current-color-info {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .color-code-display {
+        padding: 12px;
+    }
+
+    .color-code-label {
+        font-size: 10px;
+    }
+
+    .color-code-value {
+        font-size: 12px;
+    }
+
+    .color-schemes-area {
+        padding: 24px 20px;
+    }
+
+    .schemes-title {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+
+    .schemes-grid {
+        gap: 16px;
+    }
+
+    .scheme-colors {
+        height: 60px;
+    }
+
+    .scheme-info {
+        padding: 12px 16px;
+    }
+
+    .scheme-name {
+        font-size: 15px;
+    }
+
+    .scheme-description {
+        font-size: 12px;
+    }
+
+    .scheme-application {
+        font-size: 11px;
+    }
+
+    .theory-content p {
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   小型手機 (480px 以下)
+   ============================================ */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+
+    .lang-btn {
+        font-size: 9px;
+    }
+
+    .hero-left {
+        padding: 80px 20px 40px;
+    }
+
+    .hero-right {
+        padding: 40px 20px;
+    }
+
+    .hero-label {
+        font-size: 8px;
+        letter-spacing: 3px;
+    }
+
+    .hero-subtitle-jp {
+        font-size: 20px;
+    }
+
+    .hero-subtitle-cn {
+        font-size: 28px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+        margin-top: 40px;
+    }
+
+    .ascii-container {
+        transform: scale(1.2);
+    }
+
+    .concept,
+    .features,
+    .aesthetic-insights,
+    .app-showcase,
+    .philosophy-belief {
+        padding: 40px 20px;
+    }
+
+    .concept-title {
+        font-size: 32px;
+    }
+
+    .mixed-typography,
+    .concept-text {
+        font-size: 15px;
+    }
+
+    .mixed-text {
+        font-size: 18px;
+    }
+
+    .feature-item {
+        padding: 30px 20px;
+    }
+
+    .menu-items a {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+
+    .aesthetic-header h2 {
+        font-size: 28px;
+    }
+
+    .aesthetic-header .subtitle {
+        font-size: 11px;
+    }
+
+    .interactive-color-wheel {
+        max-width: 280px;
+    }
+
+    .color-wheel-center {
+        width: 60px;
+        height: 60px;
+        font-size: 9px;
+    }
+
+    .color-info-display h3 {
+        font-size: 20px;
+    }
+
+    .philosophy-item h4 {
+        font-size: 18px;
+    }
+
+    .timeline-year {
+        font-size: 28px;
+    }
+
+    .timeline-title {
+        font-size: 18px;
+    }
+
+    .philosophy-intro h2 {
+        font-size: 28px;
+    }
+
+    .belief-title {
+        font-size: 32px;
+    }
+
+    .belief-subtitle {
+        font-size: 16px;
+    }
+
+    .conclusion-statement {
+        font-size: 18px;
+    }
+
+    .phone-frame {
+        width: 200px;
+        height: 400px;
+    }
+
+    .phone-frame::before {
+        font-size: 28px;
+    }
+
+    .download-text {
+        font-size: 28px;
+    }
+
+    .legal-content,
+    .contact-card {
+        padding: 30px 20px;
+    }
+
+    .legal-title {
+        font-size: 28px;
+    }
+
+    .legal-close,
+    .contact-close {
+        font-size: 24px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .footer {
+        padding: 30px 20px;
+    }
+
+    .footer-logo a {
+        font-size: 12px;
+    }
+
+    .loader-text {
+        font-size: 24px;
+    }
+}
+
+/* ============================================
+   橫向模式調整
+   ============================================ */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .hero-left {
+        padding: 100px 40px 60px;
+    }
+
+    .philosophy-intro,
+    .philosophy-belief,
+    .philosophy-conclusion {
+        min-height: auto;
+        padding: 80px 40px;
+    }
+
+    .scroll-hint {
+        display: none;
+    }
+}
+
+/* ============================================
+   高解析度螢幕優化
+   ============================================ */
+@media (min-width: 1920px) {
+    .navbar {
+        padding: 40px 120px;
+    }
+
+    .hero-left {
+        padding: 180px 0 0 120px;
+    }
+
+    .hero-right {
+        padding-left: 80px;
+        padding-right: 180px;
+    }
+
+    .concept,
+    .features,
+    .aesthetic-insights {
+        padding: 140px 120px;
+    }
+
+    .ascii-container {
+        transform: scale(3.2);
+    }
+
+    .footer {
+        padding: 80px 120px 60px;
+    }
+}
+
+/* ============================================
+   打印樣式
+   ============================================ */
+@media print {
+
+    .navbar,
+    .menu-toggle,
+    .fullscreen-menu,
+    .loader,
+    .legal-modal,
+    .contact-modal,
+    .footer-links,
+    .app-showcase {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .hero,
+    .concept,
+    .features,
+    .aesthetic-insights,
+    .philosophy-section {
+        page-break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .ascii-container {
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   無障礙輔助
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .scroll-hint {
+        animation: none;
+    }
+
+    .loader-text {
+        animation: none;
+    }
+}
+
+/* 高對比度模式 */
+@media (prefers-contrast: high) {
+    :root {
+        --gray-mid: #666666;
+        --gray-light: #999999;
+    }
+
+    .navbar {
+        border-bottom: 2px solid var(--black);
+    }
+
+    .footer {
+        border-top: 2px solid var(--black);
+    }
+
+    .aesthetic-tab.active::after {
+        height: 3px;
+    }
+}
+
