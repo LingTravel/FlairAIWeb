@@ -136,16 +136,18 @@ body::before {
     background: var(--gray-light);
 }
 
-/* 選單切換按鈕 */
+/* 選單切換按鈕 - 新設計 */
 .menu-toggle {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: center;
+    gap: 10px; /* 增加間距 */
     background: none;
     border: none;
     padding: 10px;
     z-index: 1001;
+    height: 40px; /* 固定高度以便對齊 */
 }
 
 .menu-toggle span {
@@ -153,68 +155,67 @@ body::before {
     height: 1px;
     background: var(--black);
     transition: all 0.3s ease;
+    display: block;
+}
+
+/* 移除中間的線 */
+.menu-toggle span:nth-child(2) {
+    display: none;
 }
 
 .menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(7px, 7px);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
+    transform: translateY(5.5px) rotate(45deg);
 }
 
 .menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: translateY(-5.5px) rotate(-45deg);
 }
 
-/* ============================================
-   全屏選單
-   ============================================ */
-.fullscreen-menu {
+/* 全新輕量化選單 */
+.lightweight-menu {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: var(--black);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 90px; /* 導航欄高度 */
+    right: 60px;
+    width: 220px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--gray-light);
+    border-top: none;
+    padding: 20px 30px;
+    z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.5s ease;
-    z-index: 999;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
 }
 
-.fullscreen-menu.active {
+.lightweight-menu.active {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
 }
 
-.menu-items {
+.lightweight-menu-items {
     list-style: none;
-    text-align: center;
+    text-align: left;
 }
 
-.menu-items li {
-    margin: 40px 0;
-    overflow: hidden;
+.lightweight-menu-items li {
+    margin: 25px 0;
 }
 
-.menu-items a {
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--white);
+.lightweight-menu-items a {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--gray-dark);
     text-decoration: none;
-    letter-spacing: 4px;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
-    display: inline-block;
 }
 
-.menu-items a:hover {
-    transform: scale(1.05);
-    letter-spacing: 8px;
+.lightweight-menu-items a:hover {
+    color: var(--black);
+    padding-left: 10px;
 }
 
 /* ============================================
@@ -683,4 +684,601 @@ body::before {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ============================================
+   美學洞察區域 (Aesthetic Insights) - 重構
+   ============================================ */
+.aesthetic-insights {
+    padding: 120px 60px;
+    background: var(--bg-ultra-light);
+}
+
+.aesthetic-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.aesthetic-header .subtitle {
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--gray-mid);
+    margin-bottom: 10px;
+}
+
+.aesthetic-header h2 {
+    font-size: 48px;
+    font-weight: 500;
+}
+
+.aesthetic-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.aesthetic-tab {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 20px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: color 0.3s ease;
+}
+
+.aesthetic-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-gold);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.aesthetic-tab.active {
+    color: var(--black);
+}
+
+.aesthetic-tab.active::after {
+    transform: scaleX(1);
+}
+
+.aesthetic-tab-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--gray-mid);
+}
+
+.aesthetic-tab-title {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.aesthetic-content {
+    display: none;
+}
+
+.aesthetic-content.active {
+    display: block;
+}
+
+/* 色彩理論 - 新日式雜誌風格 */
+.color-magazine-layout-new {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 60px;
+    min-height: 70vh;
+    position: relative;
+    padding: 40px;
+    border: 1px solid var(--gray-light);
+    background: var(--white);
+}
+
+.color-magazine-bg-text-en, .color-magazine-bg-text-ja {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.025);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.color-magazine-bg-text-en {
+    font-size: 180px;
+    top: 50px;
+    right: 50px;
+}
+
+.color-magazine-bg-text-ja {
+    font-size: 120px;
+    bottom: 20px;
+    left: 20px;
+    writing-mode: vertical-rl;
+}
+
+.color-magazine-left {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.color-title-vertical {
+    writing-mode: vertical-rl;
+    font-size: 14px;
+    letter-spacing: 8px;
+    color: var(--gray-mid);
+    position: absolute;
+    top: 0;
+    left: -60px;
+}
+
+.color-main-display {
+    margin-bottom: 40px;
+}
+
+.color-preview-main {
+    width: 100%;
+    height: 150px;
+    background: #FF0000;
+    border: 1px solid var(--gray-light);
+    transition: background-color 0.3s ease;
+}
+
+.color-info-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.color-name-main {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.color-code-main {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: var(--gray-dark);
+}
+
+.color-sliders-new {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.slider-group-new {
+    display: grid;
+    grid-template-columns: 20px 1fr 50px;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.slider-group-new label {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.slider-group-new input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: var(--gray-light);
+    outline: none;
+    transition: opacity .2s;
+}
+
+.slider-group-new input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--black);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.color-data-display {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--gray-light);
+    font-size: 14px;
+    color: var(--gray-dark);
+    flex-grow: 1;
+}
+
+.color-data-item {
+    margin-bottom: 15px;
+}
+
+.color-data-item strong {
+    font-weight: 500;
+    color: var(--black);
+}
+
+.color-magazine-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.color-wheel-container-new {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+}
+
+#hslColorWheelNew {
+    width: 100%;
+    height: 100%;
+}
+
+.color-wheel-selector {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.color-schemes-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.scheme-item-new {
+    text-align: center;
+}
+
+.scheme-item-new h5 {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.scheme-palette-new {
+    display: flex;
+    height: 50px;
+}
+
+.scheme-color-new {
+    flex: 1;
+    transition: flex 0.2s ease;
+}
+
+.scheme-color-new:hover {
+    flex: 2;
+}
+
+/* ============================================
+   我們的堅持 (Our Philosophy) - 重構
+   ============================================ */
+.philosophy-magazine-new {
+    padding: 120px 60px;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.philosophy-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28vw;
+    font-family: 'Noto Serif JP', serif;
+    color: rgba(0, 0, 0, 0.02);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.philosophy-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    border: 1px solid var(--gray-light);
+    padding: 60px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.philosophy-left-page {
+    padding-right: 40px;
+    border-right: 1px solid var(--gray-light);
+}
+
+.philosophy-main-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.philosophy-title-char {
+    font-size: 120px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.philosophy-title-line {
+    width: 80px;
+    height: 1px;
+    background: var(--black);
+}
+
+.philosophy-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+}
+
+.philosophy-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    color: var(--gray-dark);
+}
+
+.philosophy-main-text p {
+    font-size: 16px;
+    line-height: 2;
+}
+
+.philosophy-right-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.philosophy-point {
+    position: relative;
+    padding: 20px 0;
+    cursor: default;
+}
+
+.philosophy-point-number {
+    position: absolute;
+    top: 20px;
+    left: -40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--gray-mid);
+}
+
+.philosophy-point-title {
+    font-size: 28px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.philosophy-point-hover-text {
+    font-size: 14px;
+    color: var(--gray-dark);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding-top: 5px;
+}
+
+.philosophy-point:hover .philosophy-point-title {
+    transform: translateX(10px);
+}
+
+.philosophy-point:hover .philosophy-point-hover-text {
+    opacity: 1;
+}
+
+/* 身形指南樣式 */
+.body-shape-guide {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 50px;
+    min-height: 60vh;
+}
+
+.body-shape-selector {
+    border-right: 1px solid var(--gray-light);
+    padding-right: 30px;
+}
+
+.selector-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.shape-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 18px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.shape-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0;
+    background: var(--accent-gold);
+    transition: height 0.3s ease;
+}
+
+.shape-btn.active, .shape-btn:hover {
+    background: var(--bg-light);
+}
+
+.shape-btn.active::before {
+    height: 100%;
+}
+
+.body-shape-content {
+    position: relative;
+}
+
+.shape-info {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.shape-info.active {
+    display: grid;
+}
+
+.shape-illustration-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-light);
+    border: 1px solid var(--gray-light);
+}
+
+.shape-illustration-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-light);
+    border: 1px solid var(--gray-light);
+}
+
+.shape-illustration-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.shape-text h3 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.shape-text p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--gray-dark);
+}
+
+/* 時尚歷史時間軸樣式 */
+.history-timeline-new {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    padding: 40px 0;
+}
+
+.history-timeline-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    height: 100%;
+    width: 1px;
+    background: var(--gray-light);
+}
+
+.timeline-item-new {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 60px;
+    transition: all 0.3s ease;
+}
+
+.timeline-item-new:hover {
+    transform: translateX(5px);
+}
+
+.timeline-item-new:hover .timeline-year-new {
+    color: var(--accent-gold);
+}
+
+.timeline-item-new:hover .timeline-content-new h3 {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.timeline-year-new {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 30px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.timeline-year-new::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.timeline-item-new:hover .timeline-year-new::after {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.timeline-content-new h3 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    transition: text-shadow 0.3s ease;
+}
+
+.timeline-content-new p {
+    font-size: 15px;
+    color: var(--gray-dark);
+    line-height: 1.8;
 }

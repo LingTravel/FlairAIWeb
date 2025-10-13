@@ -23,6 +23,10 @@ function switchLanguage(lang) {
             content.classList.remove('active');
         }
     });
+
+    // 發送語言變更事件
+    const event = new CustomEvent('language-changed', { detail: { lang: lang } });
+    document.dispatchEvent(event);
 }
 
 /**

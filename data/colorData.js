@@ -6,9 +6,9 @@
 const colorData = {
     red: {
         name: { 
-            'zh-TW': '紅色', 
-            'ja': '赤', 
-            'en': 'Red' 
+            'zh-TW': '緋色',
+            'ja': '緋色',
+            'en': 'Scarlet'
         },
         emotion: {
             'zh-TW': '熱情、力量、自信',
@@ -30,9 +30,9 @@ const colorData = {
     },
     blue: {
         name: { 
-            'zh-TW': '藍色', 
-            'ja': '青', 
-            'en': 'Blue' 
+            'zh-TW': '青藍', 
+            'ja': '青藍', 
+            'en': 'Indigo Blue' 
         },
         emotion: {
             'zh-TW': '信任、穩定、專業',
@@ -54,9 +54,9 @@ const colorData = {
     },
     green: {
         name: { 
-            'zh-TW': '綠色', 
-            'ja': '緑', 
-            'en': 'Green' 
+            'zh-TW': '若竹', 
+            'ja': '若竹', 
+            'en': 'Young Bamboo' 
         },
         emotion: {
             'zh-TW': '自然、平和、成長',
@@ -78,9 +78,9 @@ const colorData = {
     },
     yellow: {
         name: { 
-            'zh-TW': '黃色', 
-            'ja': '黄色', 
-            'en': 'Yellow' 
+            'zh-TW': '月白', 
+            'ja': '月白', 
+            'en': 'Moon White' 
         },
         emotion: {
             'zh-TW': '樂觀、活力、創意',
@@ -102,9 +102,9 @@ const colorData = {
     },
     black: {
         name: { 
-            'zh-TW': '黑色', 
-            'ja': '黒', 
-            'en': 'Black' 
+            'zh-TW': '墨色', 
+            'ja': '墨色', 
+            'en': 'Ink Black' 
         },
         emotion: {
             'zh-TW': '權威、優雅、神秘',
@@ -126,9 +126,9 @@ const colorData = {
     },
     white: {
         name: { 
-            'zh-TW': '白色', 
-            'ja': '白', 
-            'en': 'White' 
+            'zh-TW': '白練', 
+            'ja': '白練', 
+            'en': 'Polished White' 
         },
         emotion: {
             'zh-TW': '純淨、簡約、現代',
@@ -147,5 +147,159 @@ const colorData = {
         },
         color: '#FFFFFF',
         combinations: ['#000000', '#0047AB', '#2D5016']
+    },
+    nadeshiko: {
+        name: {
+            'zh-TW': '撫子',
+            'ja': '撫子色',
+            'en': 'Nadeshiko Pink'
+        },
+        emotion: {
+            'zh-TW': '溫柔、雅致、女性化',
+            'ja': '優しさ、雅、女性らしさ',
+            'en': 'Gentle, Elegant, Feminine'
+        },
+        occasion: {
+            'zh-TW': '春季、約會、下午茶',
+            'ja': '春、デート、アフタヌーンティー',
+            'en': 'Spring, Dates, Afternoon Tea'
+        },
+        pairing: {
+            'zh-TW': '與白色、淺灰、米色搭配',
+            'ja': '白、ライトグレー、ベージュと',
+            'en': 'Pair with white, light gray, beige'
+        }
+    },
+    moegi: {
+        name: {
+            'zh-TW': '萌黃',
+            'ja': '萌黄色',
+            'en': 'Sprout Green'
+        },
+        emotion: {
+            'zh-TW': '新生、活力、希望',
+            'ja': '新生、活力、希望',
+            'en': 'New Life, Vitality, Hope'
+        },
+        occasion: {
+            'zh-TW': '初春、戶外、休閒裝',
+            'ja': '早春、アウトドア、カジュアルウェア',
+            'en': 'Early Spring, Outdoors, Casual Wear'
+        },
+        pairing: {
+            'zh-TW': '與白色、檸檬黃、天藍色搭配',
+            'ja': '白、レモンイエロー、空色と',
+            'en': 'Pair with white, lemon yellow, sky blue'
+        }
+    },
+    ruri: {
+        name: {
+            'zh-TW': '瑠璃',
+            'ja': '瑠璃色',
+            'en': 'Lapis Lazuli'
+        },
+        emotion: {
+            'zh-TW': '深邃、智慧、高貴',
+            'ja': '深遠、知恵、高貴',
+            'en': 'Deep, Wise, Noble'
+        },
+        occasion: {
+            'zh-TW': '正式場合、晚裝、藝術展覽',
+            'ja': 'フォーマルな場、イブニングウェア、美術展',
+            'en': 'Formal events, Evening wear, Art galleries'
+        },
+        pairing: {
+            'zh-TW': '與銀色、白色、深紫色搭配',
+            'ja': '銀、白、深紫と',
+            'en': 'Pair with silver, white, deep purple'
+        }
+    },
+    suou: {
+        name: {
+            'zh-TW': '蘇芳',
+            'ja': '蘇芳色',
+            'en': 'Sappanwood Red'
+        },
+        emotion: {
+            'zh-TW': '古典、成熟、穩重',
+            'ja': '古典的、成熟、落ち着き',
+            'en': 'Classic, Mature, Composed'
+        },
+        occasion: {
+            'zh-TW': '秋季、文化活動、晚宴',
+            'ja': '秋、文化活動、ディナー',
+            'en': 'Autumn, Cultural events, Dinners'
+        },
+        pairing: {
+            'zh-TW': '與米色、深棕、金色搭配',
+            'ja': 'ベージュ、ダークブラウン、金と',
+            'en': 'Pair with beige, dark brown, gold'
+        }
+    },
+    taisha: {
+        name: {
+            'zh-TW': '代赭',
+            'ja': '代赭',
+            'en': 'Red Ochre'
+        },
+        emotion: {
+            'zh-TW': '大地、溫暖、質樸',
+            'ja': '大地、暖かさ、素朴',
+            'en': 'Earthy, Warm, Rustic'
+        },
+        occasion: {
+            'zh-TW': '秋季、日常、鄉村風格',
+            'ja': '秋、日常、カントリースタイル',
+            'en': 'Autumn, Daily, Country style'
+        },
+        pairing: {
+            'zh-TW': '與米色、軍綠、深藍搭配',
+            'ja': 'ベージュ、カーキ、ダークブルーと',
+            'en': 'Pair with beige, olive green, dark blue'
+        }
+    },
+    shirai: {
+        name: {
+            'zh-TW': '白藍',
+            'ja': '白藍',
+            'en': 'Pale Indigo'
+        },
+        emotion: {
+            'zh-TW': '清澈、寧靜、簡潔',
+            'ja': '清らか、静けさ、簡潔',
+            'en': 'Clear, Calm, Simple'
+        },
+        occasion: {
+            'zh-TW': '夏季、海邊、居家',
+            'ja': '夏、海辺、ホームウェア',
+            'en': 'Summer, Seaside, Loungewear'
+        },
+        pairing: {
+            'zh-TW': '與白色、淺灰、淡黃搭配',
+            'ja': '白、ライトグレー、淡黄色と',
+            'en': 'Pair with white, light gray, pale yellow'
+        }
+    },
+    ayame: {
+        name: {
+            'zh-TW': '菖蒲',
+            'ja': '菖蒲色',
+            'en': 'Iris Purple'
+        },
+        emotion: {
+            'zh-TW': '神秘、高雅、感性',
+            'ja': '神秘的、高雅、感性',
+            'en': 'Mysterious, Graceful, Sensual'
+        },
+        occasion: {
+            'zh-TW': '晚宴、藝術活動、創意場合',
+            'ja': 'ディナー、アートイベント、クリエイティブな場',
+            'en': 'Dinners, Art events, Creative occasions'
+        },
+        pairing: {
+            'zh-TW': '與黑色、銀色、深綠搭配',
+            'ja': '黒、銀、深緑と',
+            'en': 'Pair with black, silver, dark green'
+        }
     }
 };

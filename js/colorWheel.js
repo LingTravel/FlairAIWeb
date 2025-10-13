@@ -1,425 +1,323 @@
 /* ============================================
-   色盤功能文件 - colorWheel.js (重寫版)
-   HSL互動式色相環和配色方案生成
+   色盤功能文件 - colorWheel.js (重構版)
+   全新日式雜誌風格的色彩理論互動
    ============================================ */
 
-// 全局變量
-let currentHue = 0;
-let currentSaturation = 100;
-let currentLightness = 50;
-let isDragging = false;
+// 確保文檔加載完畢
+document.addEventListener('DOMContentLoaded', () => {
+    const colorWheel = new ColorTheoryModule();
+});
 
-/**
- * HSL 轉 RGB
- */
-function hslToRgb(h, s, l) {
-    h = h / 360;
-    s = s / 100;
-    l = l / 100;
+class ColorTheoryModule {
+    constructor() {
+        // 狀態變量
+        this.hue = 0;
+        this.saturation = 20;
+        this.lightness = 68;
+        this.isDragging = false;
 
-    let r, g, b;
+        // 獲取 DOM 元素
+        this.cacheDOMElements();
 
-    if (s === 0) {
-        r = g = b = l;
-    } else {
-        const hue2rgb = (p, q, t) => {
-            if (t < 0) t += 1;
-            if (t > 1) t -= 1;
-            if (t < 1/6) return p + (q - p) * 6 * t;
-            if (t < 1/2) return q;
-            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-            return p;
-        };
+        // 檢查元素是否存在
+        if (!this.canvas) {
+            console.log("色彩理論模塊未在當前頁面加載。");
+            return;
+        }
 
-        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        const p = 2 * l - q;
-
-        r = hue2rgb(p, q, h + 1/3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
+        // 初始化
+        this.init();
     }
 
-    return {
-        r: Math.round(r * 255),
-        g: Math.round(g * 255),
-        b: Math.round(b * 255)
-    };
-}
+    cacheDOMElements() {
+        this.canvas = document.getElementById('hslColorWheelNew');
+        this.selector = document.getElementById('colorWheelSelector');
+        
+        this.previewMain = document.getElementById('colorPreviewMain');
+        this.nameMain = document.getElementById('colorNameMain');
+        this.codeMain = document.getElementById('colorCodeMain');
 
-/**
- * RGB 轉 HEX
- */
-function rgbToHex(r, g, b) {
-    return "#" + [r, g, b].map(x => {
-        const hex = x.toString(16);
-        return hex.length === 1 ? "0" + hex : hex;
-    }).join('').toUpperCase();
-}
+        this.hueSlider = document.getElementById('hueSliderNew');
+        this.saturationSlider = document.getElementById('saturationSliderNew');
+        this.lightnessSlider = document.getElementById('lightnessSliderNew');
 
-/**
- * 獲取當前顏色的 HEX 值
- */
-function getCurrentColorHex() {
-    const rgb = hslToRgb(currentHue, currentSaturation, currentLightness);
-    return rgbToHex(rgb.r, rgb.g, rgb.b);
-}
+        this.hueValue = document.getElementById('hueValueNew');
+        this.saturationValue = document.getElementById('saturationValueNew');
+        this.lightnessValue = document.getElementById('lightnessValueNew');
 
-/**
- * 獲取當前顏色的 HSL 字串
- */
-function getCurrentColorHsl() {
-    return `hsl(${currentHue}, ${currentSaturation}%, ${currentLightness}%)`;
-}
-
-/**
- * 繪製 HSL 色相環
- */
-function drawColorWheel() {
-    const canvas = document.getElementById('hslColorWheel');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const outerRadius = canvas.width / 2 - 10;
-    const innerRadius = outerRadius * 0.55;
-
-    // 清空畫布
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // 繪製色相環
-    for (let angle = 0; angle < 360; angle += 0.5) {
-        const startAngle = (angle - 90) * Math.PI / 180;
-        const endAngle = (angle + 0.5 - 90) * Math.PI / 180;
-
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle);
-        ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true);
-        ctx.closePath();
-
-        const gradient = ctx.createLinearGradient(
-            centerX + Math.cos(startAngle) * innerRadius,
-            centerY + Math.sin(startAngle) * innerRadius,
-            centerX + Math.cos(startAngle) * outerRadius,
-            centerY + Math.sin(startAngle) * outerRadius
-        );
-
-        gradient.addColorStop(0, `hsl(${angle}, 100%, 50%)`);
-        gradient.addColorStop(1, `hsl(${angle}, 100%, 50%)`);
-
-        ctx.fillStyle = `hsl(${angle}, 100%, 50%)`;
-        ctx.fill();
-    }
-}
-
-/**
- * 更新選擇器位置
- */
-function updateSelectorPosition() {
-    const selector = document.getElementById('hslSelector');
-    if (!selector) return;
-
-    const canvas = document.getElementById('hslColorWheel');
-    const centerX = canvas.offsetWidth / 2;
-    const centerY = canvas.offsetHeight / 2;
-    const radius = (canvas.offsetWidth / 2 - 10) * 0.775; // 中間位置
-
-    const angleRad = (currentHue - 90) * Math.PI / 180;
-    const x = centerX + Math.cos(angleRad) * radius;
-    const y = centerY + Math.sin(angleRad) * radius;
-
-    selector.style.left = `${x}px`;
-    selector.style.top = `${y}px`;
-}
-
-/**
- * 更新顏色預覽
- */
-function updateColorPreview() {
-    const preview = document.querySelector('.current-color-preview');
-    if (preview) {
-        preview.style.backgroundColor = getCurrentColorHsl();
-    }
-}
-
-/**
- * 更新顏色代碼顯示
- */
-function updateColorCodes() {
-    const hexValue = document.getElementById('hexValue');
-    const hslValue = document.getElementById('hslValue');
-
-    if (hexValue) hexValue.textContent = getCurrentColorHex();
-    if (hslValue) hslValue.textContent = `${currentHue}, ${currentSaturation}%, ${currentLightness}%`;
-}
-
-/**
- * 更新滑桿背景
- */
-function updateSliderBackgrounds() {
-    // 明度滑桿
-    const lightnessTrack = document.getElementById('lightnessTrack');
-    if (lightnessTrack) {
-        lightnessTrack.style.background = `linear-gradient(to right, 
-            hsl(${currentHue}, ${currentSaturation}%, 0%), 
-            hsl(${currentHue}, ${currentSaturation}%, 50%), 
-            hsl(${currentHue}, ${currentSaturation}%, 100%))`;
+        this.dataDisplay = document.getElementById('colorDataDisplay');
+        this.schemesContainer = document.getElementById('colorSchemesNew');
     }
 
-    // 飽和度滑桿
-    const saturationTrack = document.getElementById('saturationTrack');
-    if (saturationTrack) {
-        saturationTrack.style.background = `linear-gradient(to right, 
-            hsl(${currentHue}, 0%, ${currentLightness}%), 
-            hsl(${currentHue}, 100%, ${currentLightness}%))`;
+    init() {
+        this.ctx = this.canvas.getContext('2d');
+        this.drawColorWheel();
+        this.addEventListeners();
+        this.updateAll();
     }
-}
 
-/**
- * 更新所有顯示
- */
-function updateAllDisplays() {
-    updateSelectorPosition();
-    updateColorPreview();
-    updateColorCodes();
-    updateSliderBackgrounds();
-    generateColorSchemes();
-}
+    addEventListeners() {
+        // 畫布交互
+        this.canvas.addEventListener('mousedown', this.startDrag.bind(this));
+        this.canvas.addEventListener('mousemove', this.drag.bind(this));
+        this.canvas.addEventListener('mouseup', this.endDrag.bind(this));
+        this.canvas.addEventListener('mouseleave', this.endDrag.bind(this));
+        // 觸控
+        this.canvas.addEventListener('touchstart', this.startDrag.bind(this));
+        this.canvas.addEventListener('touchmove', this.drag.bind(this));
+        this.canvas.addEventListener('touchend', this.endDrag.bind(this));
 
-/**
- * 處理色相環點擊/拖動
- */
-function handleWheelInteraction(e) {
-    const canvas = document.getElementById('hslColorWheel');
-    if (!canvas) return;
+        // 滑桿交互
+        this.hueSlider.addEventListener('input', e => {
+            this.hue = parseInt(e.target.value);
+            this.updateAll();
+        });
+        this.saturationSlider.addEventListener('input', e => {
+            this.saturation = parseInt(e.target.value);
+            this.updateAll();
+        });
+        this.lightnessSlider.addEventListener('input', e => {
+            this.lightness = parseInt(e.target.value);
+            this.updateAll();
+        });
 
-    const rect = canvas.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const x = e.clientX - rect.left - centerX;
-    const y = e.clientY - rect.top - centerY;
+        // 窗口大小調整
+        window.addEventListener('resize', () => {
+            this.drawColorWheel();
+            this.updateSelectorPosition();
+        });
 
-    // 計算距離中心的距離
-    const distance = Math.sqrt(x * x + y * y);
-    const outerRadius = rect.width / 2 - 10;
-    const innerRadius = outerRadius * 0.55;
+        // 語言變更監聽
+        document.addEventListener('language-changed', () => {
+            this.generateColorSchemes();
+            this.updateColorData();
+        });
+    }
 
-    // 只在環形區域內響應
-    if (distance >= innerRadius && distance <= outerRadius) {
-        let angle = Math.atan2(y, x) * 180 / Math.PI + 90;
+    // --- 交互處理 ---
+    startDrag(e) {
+        this.isDragging = true;
+        this.handleInteraction(e);
+    }
+
+    drag(e) {
+        if (this.isDragging) {
+            this.handleInteraction(e);
+        }
+    }
+
+    endDrag() {
+        this.isDragging = false;
+    }
+
+    handleInteraction(e) {
+        e.preventDefault();
+        const rect = this.canvas.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        const x = clientX - rect.left - centerX;
+        const y = clientY - rect.top - centerY;
+
+        let angle = Math.atan2(y, x) * 180 / Math.PI;
         if (angle < 0) angle += 360;
 
-        currentHue = Math.round(angle);
-        updateAllDisplays();
+        this.hue = Math.round(angle);
+        this.updateAll();
     }
-}
 
-/**
- * 生成配色方案
- */
-function generateColorSchemes() {
-    const schemesGrid = document.getElementById('schemesGrid');
-    if (!schemesGrid) return;
+    // --- 繪製與更新 ---
+    drawColorWheel() {
+        const size = this.canvas.width;
+        const center = size / 2;
+        const radius = size / 2;
 
-    const schemes = [
-        {
-            name: { 'zh-TW': '互補色', 'ja': '補色', 'en': 'Complementary' },
-            desc: { 'zh-TW': '強烈對比，充滿活力', 'ja': '強いコントラスト、活力的', 'en': 'Strong contrast, vibrant' },
-            application: { 'zh-TW': '適合重要場合', 'ja': '重要な場面に', 'en': 'For important occasions' },
-            hues: [(currentHue + 180) % 360]
-        },
-        {
-            name: { 'zh-TW': '類比色', 'ja': '類似色', 'en': 'Analogous' },
-            desc: { 'zh-TW': '和諧統一，自然舒適', 'ja': '調和的、自然な快適さ', 'en': 'Harmonious, naturally comfortable' },
-            application: { 'zh-TW': '適合日常穿搭', 'ja': '日常の着こなしに', 'en': 'For daily wear' },
-            hues: [(currentHue - 30 + 360) % 360, (currentHue + 30) % 360]
-        },
-        {
-            name: { 'zh-TW': '三色組', 'ja': '三色配色', 'en': 'Triadic' },
-            desc: { 'zh-TW': '平衡豐富，活潑生動', 'ja': 'バランスが取れた豊かさ', 'en': 'Balanced and rich' },
-            application: { 'zh-TW': '適合創意搭配', 'ja': 'クリエイティブなコーディネートに', 'en': 'For creative styling' },
-            hues: [(currentHue + 120) % 360, (currentHue + 240) % 360]
-        },
-        {
-            name: { 'zh-TW': '分裂互補', 'ja': '分裂補色', 'en': 'Split Complementary' },
-            desc: { 'zh-TW': '對比柔和，視覺豐富', 'ja': '柔らかいコントラスト', 'en': 'Softer contrast, visually rich' },
-            application: { 'zh-TW': '適合優雅造型', 'ja': 'エレガントなスタイルに', 'en': 'For elegant looks' },
-            hues: [(currentHue + 150) % 360, (currentHue + 210) % 360]
-        },
-        {
-            name: { 'zh-TW': '單色系', 'ja': '単色系', 'en': 'Monochromatic' },
-            desc: { 'zh-TW': '優雅簡約，統一協調', 'ja': 'エレガントでシンプル', 'en': 'Elegant and simple' },
-            application: { 'zh-TW': '適合正式場合', 'ja': 'フォーマルな場面に', 'en': 'For formal occasions' },
-            hues: [],
-            isMonochromatic: true
+        this.ctx.clearRect(0, 0, size, size);
+
+        for (let angle = 0; angle < 360; angle++) {
+            const startAngle = (angle - 1) * Math.PI / 180;
+            const endAngle = angle * Math.PI / 180;
+            this.ctx.beginPath();
+            this.ctx.moveTo(center, center);
+            this.ctx.arc(center, center, radius, startAngle, endAngle);
+            this.ctx.closePath();
+            this.ctx.fillStyle = `hsl(${angle}, 100%, 50%)`;
+            this.ctx.fill();
         }
-    ];
+    }
 
-    const currentLang = document.querySelector('.lang-btn.active')?.getAttribute('data-lang') || 'zh-TW';
+    updateAll() {
+        this.updateSliders();
+        this.updateSelectorPosition();
+        this.updateDisplays();
+        this.generateColorSchemes();
+        this.updateColorData();
+    }
 
-    schemesGrid.innerHTML = schemes.map(scheme => {
-        let colors = [];
-        
-        if (scheme.isMonochromatic) {
-            // 單色系：不同明度
-            colors = [
-                `hsl(${currentHue}, ${currentSaturation}%, 30%)`,
-                `hsl(${currentHue}, ${currentSaturation}%, 50%)`,
-                `hsl(${currentHue}, ${currentSaturation}%, 70%)`,
-                `hsl(${currentHue}, ${currentSaturation}%, 90%)`
-            ];
-        } else {
-            // 加入當前顏色
-            colors = [`hsl(${currentHue}, ${currentSaturation}%, ${currentLightness})`];
-            // 加入方案中的其他色相
-            scheme.hues.forEach(hue => {
-                colors.push(`hsl(${hue}, ${currentSaturation}%, ${currentLightness}%)`);
-            });
-        }
+    updateSliders() {
+        this.hueSlider.value = this.hue;
+        this.saturationSlider.value = this.saturation;
+        this.lightnessSlider.value = this.lightness;
 
-        const colorSwatches = colors.map(color => 
-            `<div class="scheme-color-swatch" style="background-color: ${color};" 
-                  onclick="copyColorCode('${color}')"></div>`
-        ).join('');
+        this.hueValue.textContent = `${this.hue}°`;
+        this.saturationValue.textContent = `${this.saturation}%`;
+        this.lightnessValue.textContent = `${this.lightness}%`;
+    }
 
-        return `
-            <div class="scheme-card">
-                <div class="scheme-colors">${colorSwatches}</div>
-                <div class="scheme-info">
-                    <h4 class="scheme-name">${scheme.name[currentLang]}</h4>
-                    <p class="scheme-description">${scheme.desc[currentLang]}</p>
-                    <p class="scheme-application">${scheme.application[currentLang]}</p>
+    updateSelectorPosition() {
+        const rect = this.canvas.getBoundingClientRect();
+        const center = rect.width / 2;
+        const radius = center * 0.8; // 選擇器軌道半徑
+        const angleRad = this.hue * Math.PI / 180;
+
+        const x = center + Math.cos(angleRad) * radius;
+        const y = center + Math.sin(angleRad) * radius;
+
+        this.selector.style.left = `${x}px`;
+        this.selector.style.top = `${y}px`;
+        this.selector.style.backgroundColor = `hsl(${this.hue}, 100%, 50%)`;
+    }
+
+    updateDisplays() {
+        const currentColor = `hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%)`;
+        const rgb = this.hslToRgb(this.hue, this.saturation, this.lightness);
+        const hex = this.rgbToHex(rgb.r, rgb.g, rgb.b);
+
+        this.previewMain.style.backgroundColor = currentColor;
+        this.codeMain.textContent = hex;
+
+        // 根據明度調整文字顏色
+        const textColor = this.lightness > 60 ? '#000' : '#FFF';
+        this.nameMain.style.color = textColor;
+        this.codeMain.style.color = textColor;
+    }
+
+    generateColorSchemes() {
+        const schemes = [
+            { name: { 'zh-TW': '互補色', 'ja': '補色', 'en': 'Complementary' }, hues: [this.hue, (this.hue + 180) % 360] },
+            { name: { 'zh-TW': '類比色', 'ja': '類似色', 'en': 'Analogous' }, hues: [this.hue, (this.hue + 30) % 360, (this.hue - 30 + 360) % 360] },
+            { name: { 'zh-TW': '三色組', 'ja': '三色配色', 'en': 'Triadic' }, hues: [this.hue, (this.hue + 120) % 360, (this.hue + 240) % 360] },
+            { name: { 'zh-TW': '單色系', 'ja': '単色系', 'en': 'Monochromatic' }, isMono: true }
+        ];
+
+        const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'zh-TW';
+        this.schemesContainer.innerHTML = schemes.map(scheme => {
+            let paletteHtml;
+            if (scheme.isMono) {
+                const colors = [
+                    `hsl(${this.hue}, ${this.saturation}%, ${Math.max(0, this.lightness - 20)}%)`,
+                    `hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%)`,
+                    `hsl(${this.hue}, ${this.saturation}%, ${Math.min(100, this.lightness + 20)}%)`
+                ];
+                paletteHtml = colors.map(c => `<div class="scheme-color-new" style="background-color: ${c}"></div>`).join('');
+            } else {
+                paletteHtml = scheme.hues.map(h => 
+                    `<div class="scheme-color-new" style="background-color: hsl(${h}, ${this.saturation}%, ${this.lightness}%)"></div>`
+                ).join('');
+            }
+
+            return `
+                <div class="scheme-item-new">
+                    <h5>${scheme.name[currentLang]}</h5>
+                    <div class="scheme-palette-new">${paletteHtml}</div>
                 </div>
-            </div>
-        `;
-    }).join('');
+            `;
+        }).join('');
+    }
+
+    updateColorData() {
+        const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'zh-TW';
+        const matchedColor = this.findMatchingColor(this.hue);
+
+        if (matchedColor) {
+            const data = colorData[matchedColor];
+            this.nameMain.textContent = data.name[currentLang];
+            this.dataDisplay.innerHTML = `
+                <div class="color-data-item">
+                    <strong><span class="lang-content active" data-lang="zh-TW">情感</span><span class="lang-content" data-lang="ja">感情</span><span class="lang-content" data-lang="en">Emotion</span>:</strong> 
+                    <span>${data.emotion[currentLang]}</span>
+                </div>
+                <div class="color-data-item">
+                    <strong><span class="lang-content active" data-lang="zh-TW">場合</span><span class="lang-content" data-lang="ja">シーン</span><span class="lang-content" data-lang="en">Occasion</span>:</strong> 
+                    <span>${data.occasion[currentLang]}</span>
+                </div>
+                <div class="color-data-item">
+                    <strong><span class="lang-content active" data-lang="zh-TW">搭配</span><span class="lang-content" data-lang="ja">ペアリング</span><span class="lang-content" data-lang="en">Pairing</span>:</strong> 
+                    <span>${data.pairing[currentLang]}</span>
+                </div>
+            `;
+        } else {
+            this.nameMain.textContent = '-';
+            this.dataDisplay.innerHTML = '';
+        }
+        // Manually update language visibility for the new content
+        updateLanguageContent(this.dataDisplay);
+    }
+
+    findMatchingColor(hue) {
+        // 定義基礎顏色的色相範圍
+        const hueRanges = {
+            suou: [0, 15],
+            taisha: [16, 44],
+            yellow: [45, 75],
+            moegi: [75, 90],
+            green: [90, 165],
+            shirai: [166, 194],
+            blue: [195, 225],
+            ruri: [225, 240],
+            ayame: [241, 329],
+            nadeshiko: [330, 345],
+            red: [346, 360]
+        };
+
+        for (const color in hueRanges) {
+            const [start, end] = hueRanges[color];
+            if (hue >= start && hue <= end) return color;
+        }
+        return null;
+    }
+
+    // --- 顏色轉換工具 ---
+    hslToRgb(h, s, l) {
+        h /= 360; s /= 100; l /= 100;
+        let r, g, b;
+        if (s === 0) {
+            r = g = b = l;
+        } else {
+            const hue2rgb = (p, q, t) => {
+                if (t < 0) t += 1;
+                if (t > 1) t -= 1;
+                if (t < 1/6) return p + (q - p) * 6 * t;
+                if (t < 1/2) return q;
+                if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            };
+            const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            const p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+        }
+        return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+    }
+
+    rgbToHex(r, g, b) {
+        return "#" + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
 }
 
-/**
- * 複製顏色代碼
- */
-function copyColorCode(color) {
-    navigator.clipboard.writeText(color).then(() => {
-        // 簡單的複製成功提示
-        console.log('已複製顏色:', color);
+// 假設 language.js 中有 updateLanguageContent 函數
+// 如果沒有，這裡提供一個簡易版本
+function updateLanguageContent(container) {
+    const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'zh-TW';
+    container.querySelectorAll('.lang-content').forEach(el => {
+        if (el.dataset.lang === currentLang) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
     });
 }
-
-/**
- * 初始化色盤
- */
-function initColorWheel() {
-    // 繪製色相環
-    drawColorWheel();
-    updateAllDisplays();
-
-    // 色相環點擊事件
-    const canvas = document.getElementById('hslColorWheel');
-    if (canvas) {
-        canvas.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            handleWheelInteraction(e);
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                handleWheelInteraction(e);
-            }
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        // 觸控支持
-        canvas.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousedown', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            handleWheelInteraction(mouseEvent);
-            e.preventDefault();
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent('mousemove', {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                handleWheelInteraction(mouseEvent);
-                e.preventDefault();
-            }
-        });
-
-        canvas.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-    }
-
-    // 明度滑桿
-    const lightnessSlider = document.getElementById('lightnessSlider');
-    const lightnessValue = document.getElementById('lightnessValue');
-    if (lightnessSlider) {
-        lightnessSlider.addEventListener('input', (e) => {
-            currentLightness = parseInt(e.target.value);
-            if (lightnessValue) lightnessValue.textContent = `${currentLightness}%`;
-            updateAllDisplays();
-        });
-    }
-
-    // 飽和度滑桿
-    const saturationSlider = document.getElementById('saturationSlider');
-    const saturationValue = document.getElementById('saturationValue');
-    if (saturationSlider) {
-        saturationSlider.addEventListener('input', (e) => {
-            currentSaturation = parseInt(e.target.value);
-            if (saturationValue) saturationValue.textContent = `${currentSaturation}%`;
-            updateAllDisplays();
-        });
-    }
-
-    // 複製按鈕
-    document.querySelectorAll('.copy-code-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const type = btn.getAttribute('data-copy');
-            let textToCopy = '';
-            
-            if (type === 'hex') {
-                textToCopy = getCurrentColorHex();
-            } else if (type === 'hsl') {
-                textToCopy = getCurrentColorHsl();
-            }
-
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                btn.style.color = '#D4AF37';
-                setTimeout(() => {
-                    btn.style.color = '';
-                }, 1000);
-            });
-        });
-    });
-
-    // 理論說明切換
-    const theoryToggle = document.getElementById('theoryToggle');
-    const theoryContent = document.getElementById('theoryContent');
-    if (theoryToggle && theoryContent) {
-        theoryToggle.addEventListener('click', () => {
-            theoryToggle.classList.toggle('active');
-            theoryContent.classList.toggle('active');
-        });
-    }
-}
-
-// 窗口大小調整時重繪
-window.addEventListener('resize', () => {
-    drawColorWheel();
-    updateSelectorPosition();
-});

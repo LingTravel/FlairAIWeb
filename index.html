@@ -45,26 +45,15 @@
         </button>
     </nav>
 
-    <!-- 全屏選單 -->
-    <div class="fullscreen-menu" id="fullscreenMenu">
-        <ul class="menu-items">
-            <li><a href="#home" class="lang-content active" data-lang="zh-TW">首頁</a><a href="#home" class="lang-content"
-                    data-lang="ja">ホーム</a><a href="#home" class="lang-content" data-lang="en">Home</a></li>
-            <li><a href="#about" class="lang-content active" data-lang="zh-TW">關於</a><a href="#about"
-                    class="lang-content" data-lang="ja">について</a><a href="#about" class="lang-content"
-                    data-lang="en">About</a></li>
-            <li><a href="#features" class="lang-content active" data-lang="zh-TW">功能</a><a href="#features"
-                    class="lang-content" data-lang="ja">機能</a><a href="#features" class="lang-content"
-                    data-lang="en">Features</a></li>
-            <li><a href="#aesthetic" class="lang-content active" data-lang="zh-TW">美學洞察</a><a href="#aesthetic"
-                    class="lang-content" data-lang="ja">美学の洞察</a><a href="#aesthetic" class="lang-content"
-                    data-lang="en">Aesthetic Insights</a></li>
-            <li><a href="#philosophy" class="lang-content active" data-lang="zh-TW">我們的堅持</a><a href="#philosophy"
-                    class="lang-content" data-lang="ja">私たちのこだわり</a><a href="#philosophy" class="lang-content"
-                    data-lang="en">Our Philosophy</a></li>
-            <li><a href="#download" class="lang-content active" data-lang="zh-TW">下載</a><a href="#download"
-                    class="lang-content" data-lang="ja">ダウンロード</a><a href="#download" class="lang-content"
-                    data-lang="en">Download</a></li>
+    <!-- 全新輕量化選單 -->
+    <div class="lightweight-menu" id="lightweightMenu">
+        <ul class="lightweight-menu-items">
+            <li><a href="#home" class="lang-content active" data-lang="zh-TW">首頁</a><a href="#home" class="lang-content" data-lang="ja">ホーム</a><a href="#home" class="lang-content" data-lang="en">Home</a></li>
+            <li><a href="#about" class="lang-content active" data-lang="zh-TW">關於</a><a href="#about" class="lang-content" data-lang="ja">について</a><a href="#about" class="lang-content" data-lang="en">About</a></li>
+            <li><a href="#features" class="lang-content active" data-lang="zh-TW">功能</a><a href="#features" class="lang-content" data-lang="ja">機能</a><a href="#features" class="lang-content" data-lang="en">Features</a></li>
+            <li><a href="#aesthetic" class="lang-content active" data-lang="zh-TW">美學</a><a href="#aesthetic" class="lang-content" data-lang="ja">美学</a><a href="#aesthetic" class="lang-content" data-lang="en">Aesthetics</a></li>
+            <li><a href="#philosophy" class="lang-content active" data-lang="zh-TW">堅持</a><a href="#philosophy" class="lang-content" data-lang="ja">こだわり</a><a href="#philosophy" class="lang-content" data-lang="en">Philosophy</a></li>
+            <li><a href="#download" class="lang-content active" data-lang="zh-TW">下載</a><a href="#download" class="lang-content" data-lang="ja">ダウンロード</a><a href="#download" class="lang-content" data-lang="en">Download</a></li>
         </ul>
     </div>
 
@@ -658,19 +647,7 @@
 
     <!-- 美學洞察區域 -->
     <section class="aesthetic-insights fade-in" id="aesthetic">
-        <div class="aesthetic-header">
-            <div class="subtitle">
-                <span class="lang-content active" data-lang="zh-TW">AESTHETIC INSIGHTS</span>
-                <span class="lang-content" data-lang="ja">美学の洞察</span>
-                <span class="lang-content" data-lang="en">AESTHETIC INSIGHTS</span>
-            </div>
-            <h2>
-                <span class="lang-content active" data-lang="zh-TW">美學洞察</span>
-                <span class="lang-content" data-lang="ja">美学の洞察</span>
-                <span class="lang-content" data-lang="en">Aesthetic Insights</span>
-            </h2>
-        </div>
-
+        
         <!-- 美學模塊標籤 -->
         <div class="aesthetic-tabs">
             <button class="aesthetic-tab active" data-tab="color">
@@ -699,497 +676,275 @@
             </button>
         </div>
 
-        <!-- 色彩理論內容 - 日式雜誌風格 -->
+        <!-- 色彩理論內容 - 全新日式雜誌風格 -->
         <div class="aesthetic-content active" id="tab-color">
-            <div class="color-magazine-layout">
-                <!-- 背景裝飾文字 -->
-                <div class="color-bg-text">COLOR</div>
-                <div class="color-bg-text-2">カラー</div>
-
-                <!-- 左側：HSL色相環與控制 -->
-                <div class="color-left-section">
-                    <!-- 裝飾標題 -->
-                    <div class="color-title-mixed">
-                        <span class="zh-large">色彩</span>
-                        <span class="en-medium">COLOR</span>
-                        <span class="ja-small">カラー</span>
+            <div class="color-magazine-layout-new">
+                <div class="color-magazine-left">
+                    <div class="color-title-vertical">
+                        <span class="lang-content active" data-lang="zh-TW">色彩探求</span>
+                        <span class="lang-content" data-lang="ja">色彩の探求</span>
+                        <span class="lang-content" data-lang="en">Color Quest</span>
                     </div>
-
-                    <!-- 色相環 -->
-                    <div class="hsl-wheel-container">
-                        <canvas id="hslColorWheel" width="450" height="450"></canvas>
-                        <div class="hsl-selector" id="hslSelector">
-                            <div class="hsl-selector-dot"></div>
-                        </div>
-                        <div class="hsl-center-preview" id="hslCenterPreview">
-                            <div class="current-color-circle"></div>
-                        </div>
-
-                        <!-- 色相環周圍標註 -->
-                        <div class="hue-label hue-0">
-                            <span class="lang-content active" data-lang="zh-TW">紅</span>
-                            <span class="lang-content" data-lang="ja">赤</span>
-                            <span class="lang-content" data-lang="en">Red</span>
-                        </div>
-                        <div class="hue-label hue-120">
-                            <span class="lang-content active" data-lang="zh-TW">綠</span>
-                            <span class="lang-content" data-lang="ja">緑</span>
-                            <span class="lang-content" data-lang="en">Green</span>
-                        </div>
-                        <div class="hue-label hue-240">
-                            <span class="lang-content active" data-lang="zh-TW">藍</span>
-                            <span class="lang-content" data-lang="ja">青</span>
-                            <span class="lang-content" data-lang="en">Blue</span>
+                    <div class="color-main-display">
+                        <div class="color-preview-main" id="colorPreviewMain"></div>
+                        <div class="color-info-main">
+                            <div class="color-name-main" id="colorNameMain">-</div>
+                            <div class="color-code-main" id="colorCodeMain">#FFFFFF</div>
                         </div>
                     </div>
-
-                    <!-- 當前值顯示 -->
-                    <div class="current-hue-display">
-                        <span class="hue-degree" id="hueDegree">0°</span>
-                        <span class="hue-name" id="hueName">
-                            <span class="lang-content active" data-lang="zh-TW">紅色</span>
-                            <span class="lang-content" data-lang="ja">赤</span>
-                            <span class="lang-content" data-lang="en">Red</span>
-                        </span>
-                    </div>
-
-                    <!-- 滑桿區域 -->
-                    <div class="sliders-compact">
-                        <!-- 明度 -->
-                        <div class="slider-row">
-                            <label class="slider-label-mixed">
-                                <span class="zh">明度</span>
-                                <span class="en">Lightness</span>
-                                <span class="ja">明度</span>
-                            </label>
-                            <div class="slider-track" id="lightnessTrack">
-                                <input type="range" id="lightnessSlider" min="0" max="100" value="50">
-                            </div>
-                            <span class="slider-value" id="lightnessValue">50%</span>
+                    <div class="color-sliders-new">
+                        <div class="slider-group-new">
+                            <label>H</label>
+                            <input type="range" id="hueSliderNew" min="0" max="360" value="0">
+                            <span id="hueValueNew">0°</span>
                         </div>
-
-                        <!-- 飽和度 -->
-                        <div class="slider-row">
-                            <label class="slider-label-mixed">
-                                <span class="zh">飽和</span>
-                                <span class="en">Saturation</span>
-                                <span class="ja">彩度</span>
-                            </label>
-                            <div class="slider-track" id="saturationTrack">
-                                <input type="range" id="saturationSlider" min="0" max="100" value="100">
-                            </div>
-                            <span class="slider-value" id="saturationValue">100%</span>
+                        <div class="slider-group-new">
+                            <label>S</label>
+                            <input type="range" id="saturationSliderNew" min="0" max="100" value="100">
+                            <span id="saturationValueNew">100%</span>
+                        </div>
+                        <div class="slider-group-new">
+                            <label>L</label>
+                            <input type="range" id="lightnessSliderNew" min="0" max="100" value="50">
+                            <span id="lightnessValueNew">50%</span>
                         </div>
                     </div>
-
-                    <!-- 顏色代碼 -->
-                    <div class="color-codes-compact">
-                        <div class="code-item">
-                            <span class="code-label">HEX</span>
-                            <span class="code-value" id="hexValue">#FF0000</span>
-                            <button class="copy-btn" data-copy="hex">
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                    <rect x="3" y="3" width="7" height="7" stroke="currentColor" />
-                                    <path d="M2 2H7V3M2 2V9H3" stroke="currentColor" />
-                                </svg>
-                            </button>
-                        </div>
+                    <div class="color-data-display" id="colorDataDisplay">
+                        <!-- 由JS填充 -->
                     </div>
                 </div>
-
-                <!-- 右側：配色方案 -->
-                <div class="color-right-section">
-                    <!-- 標題區 -->
-                    <div class="schemes-title-area">
-                        <div class="schemes-title-vertical">
-                            <span class="lang-content active" data-lang="zh-TW">推薦配色</span>
-                            <span class="lang-content" data-lang="ja">配色</span>
-                            <span class="lang-content" data-lang="en">SCHEMES</span>
-                        </div>
-                        <div class="schemes-title-horizontal">
-                            <span class="en">Color Harmony</span>
-                        </div>
-                        <div class="schemes-title-ja">
-                            <span class="ja">カラー調和</span>
-                        </div>
+                <div class="color-magazine-right">
+                    <div class="color-wheel-container-new">
+                        <canvas id="hslColorWheelNew" width="500" height="500"></canvas>
+                        <div class="color-wheel-selector" id="colorWheelSelector"></div>
                     </div>
-
-                    <!-- 配色方案列表 -->
-                    <div class="schemes-list-magazine" id="schemesListMagazine">
-                        <!-- 方案將由 JavaScript 生成 -->
-                    </div>
-
-                    <!-- 理論小知識 -->
-                    <div class="color-theory-tip">
-                        <div class="tip-icon">?</div>
-                        <div class="tip-content">
-                            <h4 class="lang-content active" data-lang="zh-TW">為什麼互補色有張力？</h4>
-                            <h4 class="lang-content" data-lang="ja">なぜ補色は緊張感がある？</h4>
-                            <h4 class="lang-content" data-lang="en">Why do complementary colors create tension?</h4>
-                            <p class="lang-content active" data-lang="zh-TW">色相環對面的顏色形成最強對比，創造視覺活力。</p>
-                            <p class="lang-content" data-lang="ja">色相環の反対側の色が最強のコントラストを生み出します。</p>
-                            <p class="lang-content" data-lang="en">Opposite colors on the wheel create the strongest
-                                contrast.</p>
-                        </div>
+                    <div class="color-schemes-new" id="colorSchemesNew">
+                        <!-- 由JS填充 -->
                     </div>
                 </div>
-
-                <!-- 垂直邊緣裝飾 -->
-                <div class="color-edge-left">
-                    <span class="lang-content active" data-lang="zh-TW">理論</span>
-                    <span class="lang-content" data-lang="ja">理論</span>
-                    <span class="lang-content" data-lang="en">THEORY</span>
-                </div>
-                <div class="color-edge-right">
-                    <span class="lang-content active" data-lang="zh-TW">調和</span>
-                    <span class="lang-content" data-lang="ja">調和</span>
-                    <span class="lang-content" data-lang="en">HARMONY</span>
-                </div>
-
-                <!-- 裝飾元素 -->
-                <div class="color-decorative-lines"></div>
+                <div class="color-magazine-bg-text-en">COLOR</div>
+                <div class="color-magazine-bg-text-ja">色彩</div>
             </div>
         </div>
 
-        <!-- 穿搭哲學內容 -->
+        <!-- 穿搭哲學內容 - 新的互動式身形指南 -->
         <div class="aesthetic-content" id="tab-philosophy">
-            <div class="philosophy-grid">
-                <!-- 繁體中文 -->
-                <div class="lang-content active" data-lang="zh-TW">
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">01</div>
-                        <h4>少即是多 <span class="jp">/ シンプルこそ美</span></h4>
-                        <p>真正的時尚不在堆砌，而在精煉。選擇經典單品，注重質感與剪裁，讓每一件衣服都能展現其本質之美。去除多餘，保留精華，這是我們對美的最高理解。</p>
+            <div class="body-shape-guide">
+                <div class="body-shape-selector">
+                    <div class="selector-title">
+                        <span class="lang-content active" data-lang="zh-TW">身形指南</span>
+                        <span class="lang-content" data-lang="ja">体型ガイド</span>
+                        <span class="lang-content" data-lang="en">Body Shape Guide</span>
                     </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">02</div>
-                        <h4>穿出自我風格</h4>
-                        <p>時尚的本質是自我表達。了解自己的體型、膚色和生活方式，建立屬於自己的獨特美學，而非盲目追隨潮流。每個人的風格都值得被尊重和欣賞。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">03</div>
-                        <h4>配件的力量</h4>
-                        <p>一條圍巾、一只手錶、一雙鞋子都能改變整體造型。善用配件，能在簡約中創造層次，在細節處展現品味。配件是風格的標點符號，賦予穿搭靈魂。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">04</div>
-                        <h4>質感勝過數量</h4>
-                        <p>投資經典、耐穿的高質感單品，遠勝於追逐快時尚。一件精心挑選的羊毛大衣，可以陪伴你十年；而十件廉價外套，可能一季就被遺忘。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">05</div>
-                        <h4>顏色的和諧</h4>
-                        <p>理解色彩心理學，掌握配色原則。同色系營造優雅，對比色展現個性，中性色建立平衡。色彩是無聲的語言，傳達你的情緒與態度。</p>
-                    </div>
+                    <button class="shape-btn active" data-shape="pear">
+                        <span class="lang-content active" data-lang="zh-TW">梨形</span>
+                        <span class="lang-content" data-lang="ja">洋ナシ形</span>
+                        <span class="lang-content" data-lang="en">Pear</span>
+                    </button>
+                    <button class="shape-btn" data-shape="apple">
+                        <span class="lang-content active" data-lang="zh-TW">蘋果形</span>
+                        <span class="lang-content" data-lang="ja">リンゴ形</span>
+                        <span class="lang-content" data-lang="en">Apple</span>
+                    </button>
+                    <button class="shape-btn" data-shape="hourglass">
+                        <span class="lang-content active" data-lang="zh-TW">沙漏形</span>
+                        <span class="lang-content" data-lang="ja">砂時計形</span>
+                        <span class="lang-content" data-lang="en">Hourglass</span>
+                    </button>
+                    <button class="shape-btn" data-shape="rectangle">
+                        <span class="lang-content active" data-lang="zh-TW">矩形</span>
+                        <span class="lang-content" data-lang="ja">長方形</span>
+                        <span class="lang-content" data-lang="en">Rectangle</span>
+                    </button>
                 </div>
-
-                <!-- 日文 -->
-                <div class="lang-content" data-lang="ja">
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">01</div>
-                        <h4><span class="jp">シンプルこそ美</span></h4>
-                        <p>本物のファッションは積み重ねではなく、シンプルさにあります。クラシックなアイテムを選び、質感とカットを重視し、各アイテムの本質的な美しさを引き出しましょう。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">02</div>
-                        <h4><span class="jp">自分らしさを着る</span></h4>
-                        <p>ファッションの本質は自己表現です。自分の体型、肌色、ライフスタイルを理解し、トレンドを盲目的に追うのではなく、独自の美学を確立しましょう。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">03</div>
-                        <h4><span class="jp">アクセサリーの力</span></h4>
-                        <p>スカーフ一枚、時計一つ、靴一足が全体の印象を変えます。アクセサリーを上手く使い、シンプルさの中に深みを作り、細部にこだわりを表現しましょう。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">04</div>
-                        <h4><span class="jp">質が量を超える</span></h4>
-                        <p>クラシックで長持ちする高品質なアイテムへの投資は、ファストファッションを追いかけるより価値があります。厳選されたウールコート一着が10年付き合えます。</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">05</div>
-                        <h4><span class="jp">色彩の調和</span></h4>
-                        <p>色彩心理学を理解し、配色の原則を掌握しましょう。同系色はエレガンスを、対比色は個性を、中性色はバランスを築きます。色彩は無言の言語です。</p>
-                    </div>
-                </div>
-
-                <!-- 英文 -->
-                <div class="lang-content" data-lang="en">
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">01</div>
-                        <h4>Less is More</h4>
-                        <p>True fashion is not about accumulation, but about refinement. Choose classic pieces, focus on
-                            texture and cut, and let each garment reveal its essential beauty.</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">02</div>
-                        <h4>Wear Your Identity</h4>
-                        <p>The essence of fashion is self-expression. Understand your body type, skin tone, and
-                            lifestyle to establish your unique aesthetic, rather than blindly following trends.</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">03</div>
-                        <h4>Power of Accessories</h4>
-                        <p>A scarf, a watch, a pair of shoes can transform your entire look. Master accessories to
-                            create depth in simplicity and showcase refined taste.</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">04</div>
-                        <h4>Quality Over Quantity</h4>
-                        <p>Investing in classic, durable high-quality items surpasses chasing fast fashion. One
-                            carefully selected wool coat can accompany you for ten years.</p>
-                    </div>
-
-                    <div class="philosophy-item">
-                        <div class="philosophy-number">05</div>
-                        <h4>Color Harmony</h4>
-                        <p>Understand color psychology and master pairing principles. Monochromatic creates elegance,
-                            contrast shows personality, neutrals establish balance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 繼續下一則回覆... -->
-        <!-- 時尚歷史內容 -->
-        <div class="aesthetic-content" id="tab-history">
-            <div class="history-timeline">
-                <!-- 繁體中文 -->
-                <div class="lang-content active" data-lang="zh-TW">
-                    <div class="timeline-item">
-                        <div class="timeline-year">1920s</div>
-                        <div class="timeline-title"><span class="en">Art Deco</span> 時代</div>
-                        <div class="timeline-desc">Coco Chanel 革新女裝，小黑裙成為永恆經典，女性開始追求舒適與自由。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1950s</div>
-                        <div class="timeline-title">優雅黃金時代</div>
-                        <div class="timeline-desc">Christian Dior 的 New Look 重新定義女性輪廓，強調腰線與裙擺。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1990s</div>
-                        <div class="timeline-title">極簡主義崛起</div>
-                        <div class="timeline-desc">Calvin Klein、Jil Sander 提倡「少即是多」，純淨線條成為主流。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2020s</div>
-                        <div class="timeline-title"><span class="en">AI Fashion</span> 時代</div>
-                        <div class="timeline-desc">人工智慧重新定義個人化穿搭，可持續時尚成為新趨勢。</div>
-                    </div>
-                </div>
-
-                <!-- 日文 -->
-                <div class="lang-content" data-lang="ja">
-                    <div class="timeline-item">
-                        <div class="timeline-year">1920s</div>
-                        <div class="timeline-title"><span class="en">Art Deco</span> 時代</div>
-                        <div class="timeline-desc">ココ・シャネルが女性ファッションを革新、リトルブラックドレスが永遠の定番に。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1950s</div>
-                        <div class="timeline-title">エレガンスの黄金時代</div>
-                        <div class="timeline-desc">ディオールのニュールックが女性シルエットを再定義。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1990s</div>
-                        <div class="timeline-title">ミニマリズムの台頭</div>
-                        <div class="timeline-desc">「Less is More」が主流となり、純粋なラインが支配的に。</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2020s</div>
-                        <div class="timeline-title"><span class="en">AI Fashion</span> 時代</div>
-                        <div class="timeline-desc">AI がパーソナライズされたスタイルを再定義、サステナブルファッションが新トレンドに。</div>
-                    </div>
-                </div>
-
-                <!-- 英文 -->
-                <div class="lang-content" data-lang="en">
-                    <div class="timeline-item">
-                        <div class="timeline-year">1920s</div>
-                        <div class="timeline-title"><span class="en">Art Deco Era</span></div>
-                        <div class="timeline-desc">Coco Chanel revolutionized women's fashion, little black dress became
-                            eternal classic.</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1950s</div>
-                        <div class="timeline-title"><span class="en">Golden Age of Elegance</span></div>
-                        <div class="timeline-desc">Christian Dior's New Look redefined feminine silhouette.</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1990s</div>
-                        <div class="timeline-title"><span class="en">Rise of Minimalism</span></div>
-                        <div class="timeline-desc">"Less is More" became mainstream with clean lines dominating fashion.
+                <div class="body-shape-content">
+                    <!-- 梨形 -->
+                    <div class="shape-info active" data-shape-info="pear">
+                        <div class="shape-illustration-container">
+                            <img src="resources/pear.png" alt="Pear Shape Illustration">
+                        </div>
+                        <div class="shape-text">
+                            <h3 class="lang-content active" data-lang="zh-TW">梨形：突出上半身</h3>
+                            <h3 class="lang-content" data-lang="ja">洋ナシ形：上半身を強調</h3>
+                            <h3 class="lang-content" data-lang="en">Pear: Accentuate The Top</h3>
+                            <p class="lang-content active" data-lang="zh-TW">選擇亮色或有細節的上衣，搭配深色、簡潔的下身。A字裙和寬褲能完美平衡身形。</p>
+                            <p class="lang-content" data-lang="ja">明るい色やディテールのあるトップスを選び、暗色でシンプルなボトムスを合わせます。Aラインスカートやワイドパンツが体型を美しく見せます。</p>
+                            <p class="lang-content" data-lang="en">Opt for bright or detailed tops with dark, simple bottoms. A-line skirts and wide-leg pants perfectly balance the figure.</p>
                         </div>
                     </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2020s</div>
-                        <div class="timeline-title"><span class="en">AI Fashion Era</span></div>
-                        <div class="timeline-desc">AI redefines personalized styling, sustainable fashion becomes the
-                            new trend.</div>
+                    <!-- 蘋果形 -->
+                    <div class="shape-info" data-shape-info="apple">
+                        <div class="shape-illustration-container">
+                            <img src="resources/apple.png" alt="Apple Shape Illustration">
+                        </div>
+                        <div class="shape-text">
+                            <h3 class="lang-content active" data-lang="zh-TW">蘋果形：創造腰線</h3>
+                            <h3 class="lang-content" data-lang="ja">リンゴ形：ウエストラインを作る</h3>
+                            <h3 class="lang-content" data-lang="en">Apple: Create a Waistline</h3>
+                            <p class="lang-content active" data-lang="zh-TW">V領上衣和高腰設計能拉長身形。選擇直筒或微喇的褲型，避免過於緊身的款式。</p>
+                            <p class="lang-content" data-lang="ja">Vネックのトップスやハイウエストのデザインが体を長く見せます。ストレートや少しフレアのパンツを選び、タイトすぎるスタイルは避けてください。</p>
+                            <p class="lang-content" data-lang="en">V-neck tops and high-waisted designs elongate the torso. Opt for straight or slightly flared pants, avoiding overly tight styles.</p>
+                        </div>
+                    </div>
+                    <!-- 沙漏形 -->
+                    <div class="shape-info" data-shape-info="hourglass">
+                        <div class="shape-illustration-container">
+                            <img src="resources/hourglass.png" alt="Hourglass Shape Illustration">
+                        </div>
+                        <div class="shape-text">
+                            <h3 class="lang-content active" data-lang="zh-TW">沙漏形：強調曲線</h3>
+                            <h3 class="lang-content" data-lang="ja">砂時計形：曲線を強調</h3>
+                            <h3 class="lang-content" data-lang="en">Hourglass: Emphasize Curves</h3>
+                            <p class="lang-content active" data-lang="zh-TW">合身剪裁的連衣裙和高腰褲是最佳選擇。利用腰帶等配件，更能凸顯您的天生優勢。</p>
+                            <p class="lang-content" data-lang="ja">フィット感のあるドレスやハイウエストパンツが最適です。ベルトなどのアクセサリーで、自然な曲線をさらに引き立てましょう。</p>
+                            <p class="lang-content" data-lang="en">Fitted dresses and high-waisted pants are your best friends. Use accessories like belts to further highlight your natural assets.</p>
+                        </div>
+                    </div>
+                    <!-- 矩形 -->
+                    <div class="shape-info" data-shape-info="rectangle">
+                        <div class="shape-illustration-container">
+                            <img src="resources/square.png" alt="Rectangle Shape Illustration">
+                        </div>
+                        <div class="shape-text">
+                            <h3 class="lang-content active" data-lang="zh-TW">矩形：增加層次</h3>
+                            <h3 class="lang-content" data-lang="ja">長方形：レイヤーを加える</h3>
+                            <h3 class="lang-content" data-lang="en">Rectangle: Add Layers</h3>
+                            <p class="lang-content active" data-lang="zh-TW">利用不同材質和層次的疊穿來增加身形的曲線感。有裝飾的上衣和A字裙都是不錯的選擇。</p>
+                            <p class="lang-content" data-lang="ja">異なる素材やレイヤーを重ね着することで、体型に曲線を加えます。装飾のあるトップスやAラインスカートが良い選択です。</p>
+                            <p class="lang-content" data-lang="en">Use layering with different textures to add curves to your silhouette. Tops with embellishments and A-line skirts are great choices.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- 時尚歷史內容 - 新的時間軸設計 -->
+        <div class="aesthetic-content" id="tab-history">
+            <div class="history-timeline-new">
+                <div class="timeline-item-new">
+                    <div class="timeline-year-new">1920s</div>
+                    <div class="timeline-content-new">
+                        <h3 class="lang-content active" data-lang="zh-TW">裝飾藝術與解放</h3>
+                        <h3 class="lang-content" data-lang="ja">アールデコと解放</h3>
+                        <h3 class="lang-content" data-lang="en">Art Deco & Emancipation</h3>
+                        <p class="lang-content active" data-lang="zh-TW">Coco Chanel 的革命性設計，如小黑裙，賦予女性前所未有的舒適與自由，直線剪裁成為主流。</p>
+                        <p class="lang-content" data-lang="ja">ココ・シャネルの革命的なデザイン、例えばリトルブラックドレスは、女性に前例のない快適さと自由を与え、直線的なカットが主流となりました。</p>
+                        <p class="lang-content" data-lang="en">Revolutionary designs by Coco Chanel, like the little black dress, gave women unprecedented comfort and freedom, making straight silhouettes mainstream.</p>
+                    </div>
+                </div>
+                <div class="timeline-item-new">
+                    <div class="timeline-year-new">1950s</div>
+                    <div class="timeline-content-new">
+                        <h3 class="lang-content active" data-lang="zh-TW">新風貌的優雅</h3>
+                        <h3 class="lang-content" data-lang="ja">ニュールックのエレガンス</h3>
+                        <h3 class="lang-content" data-lang="en">The Elegance of New Look</h3>
+                        <p class="lang-content active" data-lang="zh-TW">Christian Dior 的「New Look」以豐滿的裙擺和纖細的腰線，重新定義了戰後的女性輪廓，展現極致的優雅。</p>
+                        <p class="lang-content" data-lang="ja">クリスチャン・ディオールの「ニュールック」は、豊かなスカートと細いウエストラインで戦後の女性のシルエットを再定義し、究極のエレガンスを示しました。</p>
+                        <p class="lang-content" data-lang="en">Christian Dior's "New Look" redefined the post-war female silhouette with full skirts and cinched waists, showcasing ultimate elegance.</p>
+                    </div>
+                </div>
+                <div class="timeline-item-new">
+                    <div class="timeline-year-new">1990s</div>
+                    <div class="timeline-content-new">
+                        <h3 class="lang-content active" data-lang="zh-TW">極簡主義的純粹</h3>
+                        <h3 class="lang-content" data-lang="ja">ミニマリズムの純粋さ</h3>
+                        <h3 class="lang-content" data-lang="en">The Purity of Minimalism</h3>
+                        <p class="lang-content active" data-lang="zh-TW">Calvin Klein 和 Jil Sander 等設計師引領了「少即是多」的風潮，中性色調和簡潔線條成為時尚的核心。</p>
+                        <p class="lang-content" data-lang="ja">カルバン・クラインやジル・サンダーなどのデザイナーが「レス・イズ・モア」のトレンドを牽引し、ニュートラルな色調とクリーンなラインがファッションの核となりました。</p>
+                        <p class="lang-content" data-lang="en">Designers like Calvin Klein and Jil Sander led the "less is more" trend, with neutral tones and clean lines becoming central to fashion.</p>
+                    </div>
+                </div>
+                <div class="timeline-item-new">
+                    <div class="timeline-year-new">2020s</div>
+                    <div class="timeline-content-new">
+                        <h3 class="lang-content active" data-lang="zh-TW">科技與可持續性</h3>
+                        <h3 class="lang-content" data-lang="ja">テクノロジーと持続可能性</h3>
+                        <h3 class="lang-content" data-lang="en">Tech & Sustainability</h3>
+                        <p class="lang-content active" data-lang="zh-TW">AI 技術正在重塑個人化時尚體驗，同時，對環境的關注使可持續和道德時尚成為不可逆轉的趨勢。</p>
+                        <p class="lang-content" data-lang="ja">AI技術がパーソナライズされたファッション体験を再構築する一方で、環境への配慮から持続可能で倫理的なファッションが不可逆的なトレンドとなっています。</p>
+                        <p class="lang-content" data-lang="en">AI technology is reshaping personalized fashion experiences, while environmental concerns make sustainable and ethical fashion an irreversible trend.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
-    <!-- 我們的堅持 - 日式雜誌風格 -->
-    <section class="philosophy-magazine" id="philosophy">
-        <!-- 背景裝飾文字 -->
-        <div class="magazine-bg-text">PHILOSOPHY</div>
-
-        <div class="magazine-container">
-            <!-- 左頁：主信念 -->
-            <div class="magazine-left-page">
-                <!-- 垂直頁面標題 -->
-                <div class="vertical-page-title">
-                    <span class="lang-content active" data-lang="zh-TW">我們的堅持</span>
-                    <span class="lang-content" data-lang="ja">私たちのこだわり</span>
-                    <span class="lang-content" data-lang="en">OUR PHILOSOPHY</span>
+    <!-- 我們的堅持 - 全新跨頁雜誌風格 -->
+    <section class="philosophy-magazine-new" id="philosophy">
+        <div class="philosophy-bg-text">美学</div>
+        <div class="philosophy-spread">
+            <div class="philosophy-left-page">
+                <div class="philosophy-main-title">
+                    <div class="philosophy-title-char">美</div>
+                    <div class="philosophy-title-line"></div>
+                    <div class="philosophy-title-en">AESTHETICS</div>
                 </div>
-
-                <!-- 主信念：美是一種選擇 -->
-                <div class="main-belief" data-belief="1">
-                    <div class="belief-number-large">01</div>
-
-                    <div class="belief-text-vertical">
-                        <span class="zh-char mega">美</span>
-                    </div>
-
-                    <div class="belief-text-horizontal">
-                        <span class="en-text tiny">is a</span>
-                    </div>
-
-                    <div class="belief-text-medium">
-                        <span class="en-text">Choice</span>
-                    </div>
-
-                    <div class="belief-text-small-vertical">
-                        <span class="zh-char">選擇</span>
-                    </div>
-
-                    <!-- 懸停說明 -->
-                    <div class="belief-explanation">
-                        <p class="lang-content active" data-lang="zh-TW">我們相信，美不是偶然，而是有意識的選擇。每一次穿搭都是表達自我的機會。</p>
-                        <p class="lang-content" data-lang="ja">美は偶然ではなく、意識的な選択だと信じています。</p>
-                        <p class="lang-content" data-lang="en">Beauty is not accidental, but a conscious choice.</p>
-                    </div>
+                <div class="philosophy-subtitle">
+                    <span class="lang-content active" data-lang="zh-TW">是選擇，而非偶然</span>
+                    <span class="lang-content" data-lang="ja">それは選択であり、偶然ではない</span>
+                    <span class="lang-content" data-lang="en">Is a Choice, Not a Chance</span>
                 </div>
-
-                <!-- 裝飾文字 -->
-                <div class="decorative-note">
-                    <span class="lang-content active" data-lang="zh-TW">FlairAI 的五個核心信念</span>
-                    <span class="lang-content" data-lang="ja">FlairAI の5つの信念</span>
-                    <span class="lang-content" data-lang="en">Five Core Beliefs of FlairAI</span>
+                <div class="philosophy-main-text">
+                    <p class="lang-content active" data-lang="zh-TW">在 FlairAI，我們堅信風格始於每一次深思熟慮的選擇。它關乎質地、剪裁、色彩，以及它們如何共同講述您的故事。我們的技術旨在賦予您做出這些選擇的能力，將您的衣櫥從一系列物品，轉化為一個連貫的、充滿自我表達的系統。</p>
+                    <p class="lang-content" data-lang="ja">FlairAIでは、スタイルは意識的な選択から始まると信じています。それは質感、カット、色、そしてそれらがあなたの物語をどう語るかに関わっています。私たちの技術は、あなたがこれらの選択を行えるように力を与え、あなたのワードローブを単なるアイテムの集まりから、自己表現の一貫したシステムへと変えることを目指しています。</p>
+                    <p class="lang-content" data-lang="en">At FlairAI, we believe style begins with conscious choice. It's about texture, cut, color, and how they unite to tell your story. Our technology is designed to empower those choices, transforming your wardrobe from a collection of items into a coherent system of self-expression.</p>
                 </div>
             </div>
-
-            <!-- 右頁：四個次要信念 -->
-            <div class="magazine-right-page">
-                <!-- 信念 2：簡約是最高級 -->
-                <div class="secondary-belief belief-2" data-belief="2">
-                    <span class="belief-number-small">02</span>
-                    <div class="belief-vertical-text">
-                        <span class="zh-text large">簡約</span>
+            <div class="philosophy-right-page">
+                <div class="philosophy-point" id="philosophy-point-1">
+                    <div class="philosophy-point-number">01</div>
+                    <div class="philosophy-point-title">
+                        <span class="lang-content active" data-lang="zh-TW">簡約即煉</span>
+                        <span class="lang-content" data-lang="ja">洗練されたシンプルさ</span>
+                        <span class="lang-content" data-lang="en">Refined Simplicity</span>
                     </div>
-                    <div class="belief-horizontal-text">
-                        <span class="en-text medium">Simplicity</span>
-                    </div>
-                    <div class="belief-ja-text">
-                        <span class="ja-text small">シンプル</span>
-                    </div>
-                    <div class="belief-explanation">
-                        <p class="lang-content active" data-lang="zh-TW">去除多餘，保留本質。這是我們對美的理解。</p>
-                        <p class="lang-content" data-lang="ja">余分を削ぎ落とし、本質を残す。</p>
-                        <p class="lang-content" data-lang="en">Remove the excess, keep the essence.</p>
+                    <div class="philosophy-point-hover-text">
+                        <span class="lang-content active" data-lang="zh-TW">去除多餘，專注本質。</span>
+                        <span class="lang-content" data-lang="ja">余分を削ぎ落とし、本質に集中する。</span>
+                        <span class="lang-content" data-lang="en">Remove the excess, focus on the essential.</span>
                     </div>
                 </div>
-
-                <!-- 信念 3：每個細節都重要 -->
-                <div class="secondary-belief belief-3" data-belief="3">
-                    <span class="belief-number-small">03</span>
-                    <div class="belief-mixed-text">
-                        <span class="zh-text medium">細節</span>
-                        <span class="en-text small">Details</span>
-                        <span class="ja-text tiny">ディテール</span>
+                <div class="philosophy-point" id="philosophy-point-2">
+                    <div class="philosophy-point-number">02</div>
+                    <div class="philosophy-point-title">
+                        <span class="lang-content active" data-lang="zh-TW">細節至上</span>
+                        <span class="lang-content" data-lang="ja">細部へのこだわり</span>
+                        <span class="lang-content" data-lang="en">Obsession with Detail</span>
                     </div>
-                    <div class="belief-explanation">
-                        <p class="lang-content active" data-lang="zh-TW">從像素到體驗，我們關注每一個微小之處。</p>
-                        <p class="lang-content" data-lang="ja">すべての微細な部分に注意を払います。</p>
-                        <p class="lang-content" data-lang="en">We care about every small detail.</p>
+                     <div class="philosophy-point-hover-text">
+                        <span class="lang-content active" data-lang="zh-TW">從像素到縫線，皆是藝術。</span>
+                        <span class="lang-content" data-lang="ja">ピクセルから縫い目まで、すべてがアート。</span>
+                        <span class="lang-content" data-lang="en">From pixel to stitch, everything is art.</span>
                     </div>
                 </div>
-
-                <!-- 信念 4：科技服務美學 -->
-                <div class="secondary-belief belief-4" data-belief="4">
-                    <span class="belief-number-small">04</span>
-                    <div class="belief-rotated-text">
-                        <span class="zh-text large">科技</span>
+                <div class="philosophy-point" id="philosophy-point-3">
+                    <div class="philosophy-point-number">03</div>
+                    <div class="philosophy-point-title">
+                        <span class="lang-content active" data-lang="zh-TW">科技為輔</span>
+                        <span class="lang-content" data-lang="ja">美学のための技術</span>
+                        <span class="lang-content" data-lang="en">Technology for Aesthetics</span>
                     </div>
-                    <div class="belief-horizontal-text">
-                        <span class="en-text tiny">serves</span>
-                    </div>
-                    <div class="belief-vertical-small">
-                        <span class="zh-text">美學</span>
-                    </div>
-                    <div class="belief-explanation">
-                        <p class="lang-content active" data-lang="zh-TW">AI 是工具，美才是目的。</p>
-                        <p class="lang-content" data-lang="ja">AI はツール、美こそが目的。</p>
-                        <p class="lang-content" data-lang="en">AI is the tool, beauty is the goal.</p>
+                     <div class="philosophy-point-hover-text">
+                        <span class="lang-content active" data-lang="zh-TW">AI是工具，美感是目的。</span>
+                        <span class="lang-content" data-lang="ja">AIはツール、美が目的。</span>
+                        <span class="lang-content" data-lang="en">AI is the tool, beauty is the goal.</span>
                     </div>
                 </div>
-
-                <!-- 信念 5：尊重個人風格 -->
-                <div class="micro-belief belief-5" data-belief="5">
-                    <span class="belief-number-small">05</span>
-                    <div class="belief-compact-text">
-                        <span class="zh-text small">尊重</span>
-                        <span class="en-text tiny">Respect</span>
-                        <span class="zh-text small">風格</span>
+                <div class="philosophy-point" id="philosophy-point-4">
+                    <div class="philosophy-point-number">04</div>
+                    <div class="philosophy-point-title">
+                        <span class="lang-content active" data-lang="zh-TW">尊重個性</span>
+                        <span class="lang-content" data-lang="ja">個性の尊重</span>
+                        <span class="lang-content" data-lang="en">Respect for Individuality</span>
                     </div>
-                    <div class="belief-explanation">
-                        <p class="lang-content active" data-lang="zh-TW">我們分析但不評判，建議但不強加。</p>
-                        <p class="lang-content" data-lang="ja">分析はしますが評価はしません。</p>
-                        <p class="lang-content" data-lang="en">We analyze, not judge.</p>
+                     <div class="philosophy-point-hover-text">
+                        <span class="lang-content active" data-lang="zh-TW">我們分析，從不評判。</span>
+                        <span class="lang-content" data-lang="ja">私たちは分析し、決して評価しない。</span>
+                        <span class="lang-content" data-lang="en">We analyze, we never judge.</span>
                     </div>
                 </div>
-
-                <!-- 裝飾線條 -->
-                <div class="decorative-line line-1"></div>
-                <div class="decorative-line line-2"></div>
-                <div class="decorative-dot dot-1"></div>
-                <div class="decorative-dot dot-2"></div>
             </div>
-        </div>
-
-        <!-- 垂直邊緣文字 -->
-        <div class="edge-text-left">
-            <span class="lang-content active" data-lang="zh-TW">信念</span>
-            <span class="lang-content" data-lang="ja">信念</span>
-            <span class="lang-content" data-lang="en">BELIEF</span>
-        </div>
-        <div class="edge-text-right">
-            <span class="lang-content active" data-lang="zh-TW">堅持</span>
-            <span class="lang-content" data-lang="ja">こだわり</span>
-            <span class="lang-content" data-lang="en">PHILOSOPHY</span>
         </div>
     </section>
 

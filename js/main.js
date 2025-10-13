@@ -53,59 +53,42 @@ function initAestheticTabs() {
 }
 
 /**
- * 滾動觀察器 - 我們的堅持
+ * 新增：身形指南標籤切換
  */
-function initBeliefObserver() {
-    const beliefObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.3
-    });
+function initBodyShapeGuide() {
+    const shapeBtns = document.querySelectorAll('.shape-btn');
+    const shapeInfos = document.querySelectorAll('.shape-info');
 
-    document.querySelectorAll('.philosophy-belief').forEach(belief => {
-        beliefObserver.observe(belief);
+    shapeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetShape = btn.getAttribute('data-shape');
+
+            shapeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            shapeInfos.forEach(info => {
+                if (info.getAttribute('data-shape-info') === targetShape) {
+                    info.classList.add('active');
+                } else {
+                    info.classList.remove('active');
+                }
+            });
+        });
     });
 }
 
 /**
- * 滾動觀察器 - 穿搭哲學
+ * 初始化新的 "Our Philosophy" 區塊的懸停效果
  */
-function initPhilosophyObserver() {
-    const philosophyObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+function initPhilosophyHovers() {
+    const points = document.querySelectorAll('.philosophy-point');
+    points.forEach(point => {
+        point.addEventListener('mouseenter', () => {
+            point.classList.add('hovered');
         });
-    }, {
-        threshold: 0.2
-    });
-
-    document.querySelectorAll('.philosophy-item').forEach(item => {
-        philosophyObserver.observe(item);
-    });
-}
-
-/**
- * 滾動觀察器 - 時間軸
- */
-function initTimelineObserver() {
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        point.addEventListener('mouseleave', () => {
+            point.classList.remove('hovered');
         });
-    }, {
-        threshold: 0.2
-    });
-
-    document.querySelectorAll('.timeline-item').forEach(item => {
-        timelineObserver.observe(item);
     });
 }
 
@@ -150,9 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initASCII();
     startASCIIAnimation();
 
-    // 初始化色盤
-    initColorWheel();
-
     // 初始化語言切換
     initLanguageSwitcher();
 
@@ -165,12 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 初始化標籤
     initAestheticTabs();
+    initBodyShapeGuide();
 
     // 初始化滾動觀察器
-    initBeliefObserver();
-    initPhilosophyObserver();
-    initTimelineObserver();
     initScrollObserver();
+
+    // 初始化新的 "Our Philosophy" 互動
+    initPhilosophyHovers();
 });
 
 // 頁面載入完成

@@ -23,28 +23,26 @@ function initNavbar() {
  */
 function initMenuToggle() {
     const menuToggle = document.getElementById('menuToggle');
-    const fullscreenMenu = document.getElementById('fullscreenMenu');
+    const lightweightMenu = document.getElementById('lightweightMenu');
 
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
-        fullscreenMenu.classList.toggle('active');
-        document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        lightweightMenu.classList.toggle('active');
     });
 
-    // 選單項目點擊
-    document.querySelectorAll('.menu-items a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!lightweightMenu.contains(e.target) && !menuToggle.contains(e.target)) {
             menuToggle.classList.remove('active');
-            fullscreenMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            lightweightMenu.classList.remove('active');
+        }
+    });
 
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
+    // Menu item click
+    document.querySelectorAll('.lightweight-menu-items a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            lightweightMenu.classList.remove('active');
         });
     });
 }
